@@ -1,0 +1,140 @@
+FACT:
+	Tooltip:
+		Name: Construction Yard
+		Icon: mcvicnh
+		Description: Builds structures
+
+NUKE:
+	Tooltip:
+		Name: Shield Generator
+		Icon: nukeicnh
+		Description: Provides power and shields
+
+PROC:
+	Tooltip:
+		Name: Jawa Scrap Refinery
+		Icon: procicnh
+		Description: Processes raw Scrap\ninto useable resources
+
+SILO:
+	Tooltip:
+		Name: Scrap Vat
+		Icon: siloicnh
+		Description: Silo that stores processed Scrap
+
+PYLE:
+	Tooltip:
+		Name: Imperial Barracks
+		Icon: pyleicnh
+		Description: Trains Imperial infantry
+	
+HAND:
+	Tooltip:
+		Name: Millennium Falcon
+		Icon: handicnh
+		Description: Provides access to Rebel infantry
+
+AFLD:
+	Tooltip:
+		Name: Spaceport
+		Icon: afldicnh
+		Description: Provides a dropzone\nfor vehicle reinforcements
+
+WEAP:
+	Tooltip:
+		Name: Weapons Factory
+		Icon: weapicnh
+		Description: Assembly point for\nvehicle reinforcements
+
+HQ:
+	Tooltip:
+		Name: Command Center
+		Icon: hqicnh
+		Description: Provides an overview of the battlefield.\n  Requires power to operate.
+	AirstrikePower:
+		Description: TIE Bomber Airstrike
+		LongDesc: Deploy an aerial bombardment.\nBurns buildings and infantry along a line.
+
+NUK2:
+	Tooltip:
+		Name: Advanced Shield Generator
+		Icon:nuk2icnh
+		Description: Provides more power, cheaper than the \nstandard Shield Generator
+		
+FIX:
+	Tooltip:
+		Name: Repair Facility
+		Icon: fixicnh
+		Description: Repairs vehicles and allows the\nconstruction of additional bases.
+	
+HPAD:
+	Tooltip:
+		Name: Launch Platform
+		Icon:hpadicnh
+		Description: Produces, rearms and\nrepairs aircraft.
+
+EYE:
+	Tooltip:
+		Name: Shield Projector
+		Icon: eyeicnh
+		Description: Provides access to the Death Star.\n  Requires power to operate.
+	IonCannonPower:
+		Description: Death Star Strike
+		LongDesc: Initiate an Death Star strike.\nApplies instant damage to a small area.
+
+TMPL:
+	Tooltip:
+		Name: Heavy Ion Cannon
+		Icon: tmplicnh
+		Description: Provides access to Rebel Heavy Ion Cannon .\n  Requires power to operate.
+	NukePower:
+		Description: Ion Cannon
+		LongDesc: Launch a tactical Ion Cannon strike.\nApplies heavy damage over a large area.
+
+OBLI:
+	Tooltip:
+		Name: Obelisk of Light
+		Icon:obliicnh
+		Description: Advanced base defense.\n  Requires power to operate.\n  Strong vs Tanks, Infantry\n  Weak vs Aircraft
+
+CYCL:
+	Tooltip:
+		Name: Chain Link Barrier
+		Icon:cyclicnh
+		Description: Stops infantry and blocks enemy fire.\nCan be crushed by heavy vehicles.
+
+
+SBAG:
+	Tooltip:
+		Name: Sandbag Barrier
+		Icon:sbagicnh
+		Description: Stops infantry and blocks enemy fire.\nCan be crushed by heavy vehicles.
+
+BRIK:
+	Tooltip:
+		Name: Concrete Barrier
+		Icon:brikicnh
+		Description: Stop units and blocks enemy fire.
+
+GUN:
+	Tooltip:
+		Name: Turbolaser
+		Icon: gunicnh
+		Description: Anti-Armor base defense.\n  Strong vs Tanks\n  Weak vs Infantry, Aircraft
+SAM:
+	Tooltip:
+		Name: AA-Laser
+		Icon: samicnh
+		Description: Anti-Air base defense.\n  Strong vs Aircraft\n  Weak vs Infantry, Tanks
+	
+GTWR:
+	Tooltip:
+		Name: Laser Post
+		Icon: gtwricnh
+		Description: Basic defensive structure.\n  Strong vs Infantry\n  Weak vs Tanks, Aircraft
+
+ATWR:
+	Tooltip:
+		Name: Plasma Battery
+		Icon: atwricnh
+		Description: Anti-armor defensive structure.\n  Strong vs Light Vehicles, Tanks\n  Weak vs Infantry

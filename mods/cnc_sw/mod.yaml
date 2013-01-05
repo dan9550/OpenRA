@@ -1,0 +1,162 @@
+Metadata:
+	Title: C&C Meets Star Wars
+	Description: The classic mod reborn in the OpenRA engine
+	Version: 1.5m
+	Author: Nyerguds (Conversion by Dan9550)
+
+Folders:
+	.
+	./mods/cnc_sw
+	./mods/cnc_sw/bits
+	./mods/cnc_sw/uibits
+	./mods/cnc_sw/packages
+	./mods/cnc
+	./mods/cnc/bits
+	~^/Content/cnc_sw
+	~^/Content/cnc
+
+Packages:
+	desestar.mix
+	wintstar.mix
+	tempstar.mix
+	snowstar.mix
+	starmain.mix
+	starmusc.mix
+	starscen.mix
+	starvocs.mix
+	starwars.mix
+	#Stock C&C95 Pakcages
+	overrides.mix
+	bluetib.mix
+	speech.mix
+	conquer.mix
+	sounds.mix
+	tempicnh.mix
+	temperat.mix
+	winter.mix
+	desert.mix
+	snow.mix
+	~movies-gdi.mix
+	~movies-nod.mix
+	~movies.mix
+	~scores.mix
+	~transit.mix
+Rules:
+	mods/cnc/rules/defaults.yaml
+	mods/cnc_sw/rules/system.yaml
+	mods/cnc/rules/system.yaml
+	#Hopefully this will overide and replace the tooltips :S
+	mods/cnc_sw/rules/structures.yaml
+	mods/cnc/rules/structures.yaml
+	mods/cnc_sw/rules/infantry.yaml
+	mods/cnc/rules/infantry.yaml
+	mods/cnc_sw/rules/vehicles.yaml
+	mods/cnc/rules/vehicles.yaml
+	mods/cnc/rules/trees.yaml
+	mods/cnc/rules/civilian.yaml
+	mods/cnc/rules/civilian-desert.yaml
+	mods/cnc/rules/tech.yaml
+	mods/cnc/rules/ships.yaml
+	mods/cnc_sw/rules/aircraft.yaml
+	mods/cnc/rules/aircraft.yaml
+	mods/cnc_sw/rules/husks.yaml
+	mods/cnc/rules/husks.yaml
+
+Sequences:
+	mods/cnc/sequences/structures.yaml
+	#mods/cnc_sw/sequences/vehicles.yaml
+	mods/cnc/sequences/vehicles.yaml
+	mods/cnc/sequences/infantry.yaml
+	mods/cnc/sequences/map.yaml
+	mods/cnc/sequences/misc.yaml
+	# Low priority sequences that break the batch when used
+	mods/cnc/sequences/civilian.yaml
+	mods/cnc/sequences/campaign.yaml
+Cursors:
+	mods/cnc_sw/cursors.yaml
+
+Chrome:
+	mods/cnc_sw/chrome.yaml
+	
+Assemblies:
+	mods/ra/OpenRA.Mods.RA.dll
+	mods/cnc/OpenRA.Mods.Cnc.dll
+	mods/cnc_sw/OpenRA.Mods.Cnc_Sw.dll
+
+ChromeLayout:
+	mods/cnc_sw/chrome/mainmenu.yaml
+	mods/cnc_sw/chrome/ingame.yaml
+	mods/cnc/chrome/install.yaml
+	mods/cnc/chrome/serverbrowser.yaml
+	mods/cnc/chrome/createserver.yaml
+	mods/cnc/chrome/directconnect.yaml
+	mods/cnc/chrome/lobby.yaml
+	mods/cnc/chrome/connection.yaml
+	mods/cnc/chrome/mapchooser.yaml
+	mods/cnc/chrome/replaybrowser.yaml
+	mods/cnc/chrome/ingamemenu.yaml
+	mods/cnc/chrome/music.yaml
+	mods/cnc/chrome/modchooser.yaml
+	mods/cnc/chrome/settings.yaml
+	mods/cnc/chrome/cheats.yaml
+	mods/cnc/chrome/dialogs.yaml
+	mods/cnc/chrome/objectives.yaml
+	mods/cnc/chrome/tooltips.yaml
+
+Weapons:
+	mods/cnc/weapons.yaml
+
+Movies:
+	mods/cnc/movies-gdi.yaml
+	mods/cnc/movies-nod.yaml
+	
+Voices:
+	mods/cnc/voices.yaml
+
+Notifications:
+	mods/cnc/notifications.yaml
+
+Music:
+	mods/cnc_sw/music.yaml
+
+TileSets:
+	mods/cnc/tilesets/desert.yaml
+	mods/cnc/tilesets/winter.yaml
+	mods/cnc/tilesets/snow.yaml
+	mods/cnc/tilesets/temperat.yaml
+
+LoadScreen: CncSwLoadScreen
+	InstallerMenuWidget: INSTALL_PANEL
+	InstallerBackgroundWidget: INSTALL_BACKGROUND
+	TestFile: starwars.mix
+	PackageURL: http://thiswouldneedtobearealurlifthiswasafull.release
+
+ServerTraits:
+	LobbyCommands
+	MasterServerPinger
+
+ChromeMetrics:
+	mods/cnc_sw/metrics.yaml
+
+Fonts:
+	Regular:
+		Font:FreeSans.ttf
+		Size:14
+	Bold:
+		Font:FreeSansBold.ttf
+		Size:14
+	Title:
+		Font:titles.ttf
+		Size:48
+	MediumBold:
+		Font:FreeSansBold.ttf
+		Size:18
+	BigBold:
+		Font:FreeSansBold.ttf
+		Size:24
+	Tiny:
+		Font:FreeSans.ttf
+		Size:10
+	TinyBold:
+		Font:FreeSansBold.ttf
+		Size:10

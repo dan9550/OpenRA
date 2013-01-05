@@ -1,0 +1,71 @@
+MCV.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Mobile Construction Vehicle (Destroyed)
+
+HARV.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Jawa Sandcrawler (Destroyed)
+
+APC.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Armored Personnel Carrier (Destroyed)
+
+
+FTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Flame Tank (Destroyed)
+
+
+ARTY.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Artillery (Destroyed)
+
+BGGY.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: X-34 Landspeeder (Destroyed)
+
+BIKE.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: 74-Z Speeder Bike (Destroyed)
+
+JEEP.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: TIE Crawler (Destroyed)
+
+LTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: T-47 Airspeeder (Destroyed)
+
+MTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: All Terrain Scout Transport (AT-ST) (Destroyed)
+
+HTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: All Terrain Armored Transport (AT-AT) (Destroyed)
+
+MSAM.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Rocket Launcher (Destroyed)
+
+MLRS.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: SSM Launcher (Destroyed)
+		
+STNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Stealth Tank (Destroyed)

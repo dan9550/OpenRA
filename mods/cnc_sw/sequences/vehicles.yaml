@@ -1,0 +1,15 @@
+harv:
+	idle:
+		Start: 0
+		Facings: 32
+	harvest:
+		Start: 32
+		Length: 4
+		Facings: 8
+		Tick: 60
+	dock: harvdump
+		Start: 0
+		Length: 7
+	dock-loop: harvdump
+		Start: 7
+		Length: 4

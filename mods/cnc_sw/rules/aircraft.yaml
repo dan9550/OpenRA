@@ -1,0 +1,27 @@
+TRAN:
+	Tooltip:
+		Name: Lambda Class Shuttle
+		Icon:tranicnh
+		Description: Fast Infantry Transport Shuttle.\n  Unarmed
+
+HELI:
+	Tooltip:
+		Name: A-Wing
+		Icon: heliicnh
+		Description: Gunship with Laser Battery.\n  Strong vs Infantry, Light Vehicles\n  Weak vs Tanks
+
+ORCA:
+	Tooltip:
+		Name: TIE Fighter
+		Icon: orcaicnh
+		Description: Gunship with Enhanced Laser Battery.\n  Strong vs Buildings, Tanks\n  Weak vs Infantry
+
+C17:
+	Tooltip:
+		Name: Transport Vessel
+
+A10:
+	Tooltip:
+		Name: TIE Bomber
+		Icon: a10icnh
+

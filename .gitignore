@@ -55,3 +55,8 @@ OpenRA.Launcher.Mac/OpenRA.xcodeproj/*.mode1v3
 # KDE crap
 *.kate-swp
 *.directory
+
+#Bit of CnC SW that arn't needed on git
+mods/cnc_sw/README.txt
+mods/cnc_sw/OpenRA.Mods.cnc_sw.dll
+mods/cnc_sw/starmusc.mix

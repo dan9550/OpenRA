@@ -1,0 +1,77 @@
+HARV:
+	Tooltip:
+		Name: Jawa Sandcrawler
+		Icon: harvicnh
+		Description: Collects Scrap for processing.\n  Unarmed
+
+APC:
+	Tooltip:
+		Name: Armored Personnel Carrier
+		Icon: apcicnh
+		Description: Armored infantry transport and mobile AA\n  Strong vs Aircraft\n  Weak vs Tanks, Infantry
+
+ARTY:
+	Tooltip:
+		Name: Artillery
+		Icon:artyicnh
+		Description: Long-range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Tanks, Aircraft
+
+FTNK:
+	Tooltip:
+		Name: Flame Tank
+		Icon: ftnkicnh
+		Description: Heavily armored flame-throwing vehicle.\n  Strong vs Infantry, Buildings\n  Weak vs Aircraft
+
+BGGY:
+	Tooltip:
+		Name: X-34 Landspeeder
+		Icon: bggyicnh
+		Description: Fast scout & anti-infantry vehicle.\n  Strong vs Infantry\n  Weak vs Tanks, Aircraft
+
+BIKE:
+	Tooltip:
+		Name: 74-Z Speeder Bike
+		Icon: bikeicnh
+		Description: Fast scout vehicle, armed with \nrockets.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+	
+JEEP:
+	Tooltip:
+		Name: TIE Crawler
+		Icon: jeepicnh
+		Description: Fast scout & anti-infantry vehicle.\n  Strong vs Infantry\n  Weak vs Tanks, Aircraft
+
+LTNK:
+	Tooltip:
+		Name: T-47 Airspeeder
+		Icon: ltnkicnh
+		Description: Light Tank, good for scouting.\n  Strong vs Light Vehicles\n  Weak vs Tanks, Aircraft
+
+MTNK:
+	Tooltip:
+		Name: All Terrain Scout Transport (AT-ST)
+		Icon: mtnkicnh
+		Description: General-Purpose Empire AT.\n  Strong vs Tanks, Light Vehicles\n  Weak vs Infantry, Aircraft
+
+HTNK:
+	Tooltip:
+		Name: All Terrain Armored Transport (AT-AT)
+		Icon: htnkicnh
+		Description: Heavily armored Empire AT.\n  Strong vs Everything
+
+MSAM:
+	Tooltip:
+		Name: Rocket Launcher
+		Icon: msamicnh
+		Description: Long range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Tanks, Aircraft
+
+MLRS:
+	Tooltip:
+		Name: SSM Launcher
+		Icon: mlrsicnh
+		Description: Long range artillery.\n  Strong vs Infantry, Aircraft\n  Weak vs Tanks, Aircraft
+
+STNK:
+	Tooltip:
+		Name: Stealth Tank
+		Icon: stnkicnh
+		Description: Missile tank that can bend light around \nitself to become invisible\n  Strong vs Infantry, Aircraft\n  Weak vs Tanks

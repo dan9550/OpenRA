@@ -1,0 +1,7 @@
+World:
+	Country@gdi:
+		Name: Galactic Empire
+		Race: gdi
+	Country@nod:
+		Name: Rebel Alliance
+		Race: nod
