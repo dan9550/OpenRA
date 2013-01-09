@@ -1,7 +1,7 @@
 Metadata:
 	Title: C&C Meets Star Wars
 	Description: The classic mod reborn in the OpenRA engine
-	Version: 1.5m
+	Version: 1.7
 	Author: Nyerguds (Conversion by Dan9550)
 
 Folders:
@@ -86,7 +86,7 @@ Assemblies:
 ChromeLayout:
 	mods/cnc_sw/chrome/mainmenu.yaml
 	mods/cnc_sw/chrome/ingame.yaml
-	mods/cnc/chrome/install.yaml
+	mods/cnc_sw/chrome/install.yaml
 	mods/cnc/chrome/serverbrowser.yaml
 	mods/cnc/chrome/createserver.yaml
 	mods/cnc/chrome/directconnect.yaml
@@ -129,7 +129,7 @@ LoadScreen: CncSwLoadScreen
 	InstallerMenuWidget: INSTALL_PANEL
 	InstallerBackgroundWidget: INSTALL_BACKGROUND
 	TestFile: starwars.mix
-	PackageURL: http://thiswouldneedtobearealurlifthiswasafull.release
+	PackageURL: http://10.0.2.254/cnc_sw/cnc_sw-packages.zip
 
 ServerTraits:
 	LobbyCommands

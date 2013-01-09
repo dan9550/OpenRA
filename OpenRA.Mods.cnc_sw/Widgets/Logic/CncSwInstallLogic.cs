@@ -31,15 +31,6 @@ namespace OpenRA.Mods.CncSw.Widgets.Logic
             panel.Get<ButtonWidget>("DOWNLOAD_BUTTON").OnClick = () =>
                 Ui.OpenWindow("INSTALL_DOWNLOAD_PANEL", args);
 
-            panel.Get<ButtonWidget>("INSTALL_BUTTON").OnClick = () =>
-               Ui.OpenWindow("INSTALL_FROMCD_PANEL", new WidgetArgs(args)
-				{
-					{ "filesToCopy", new[] { "desestar.mix", "starmain.mix", "starmusc.mix",
-											 "starvocs.mix", "starwars.mix", "tempstar.mix",
-                                             "wintystar.mix", "snowstar.mix" } },
-					{ "filesToExtract", new[] { "starmain.mix" } },
-				});
-
             panel.Get<ButtonWidget>("QUIT_BUTTON").OnClick = Game.Exit;
 
             panel.Get<ButtonWidget>("MODS_BUTTON").OnClick = () =>
