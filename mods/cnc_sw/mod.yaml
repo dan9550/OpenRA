@@ -64,7 +64,7 @@ Rules:
 
 Sequences:
 	mods/cnc/sequences/structures.yaml
-	#mods/cnc_sw/sequences/vehicles.yaml
+	mods/cnc_sw/sequences/vehicles.yaml
 	mods/cnc/sequences/vehicles.yaml
 	mods/cnc/sequences/infantry.yaml
 	mods/cnc/sequences/map.yaml
