@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\HarvesterDockSequence.cs" />
     <Compile Include="CncSwLoadScreen.cs" />
     <Compile Include="Missions\CncSwShellmapScript.cs" />
     <Compile Include="Missions\Emp01Script.cs" />

@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using OpenRA.Mods.RA.Widgets.Logic;
 using OpenRA.Widgets;
-using OpenRA.Mods;
 using OpenRA.Mods.Cnc;
 
 namespace OpenRA.Mods.cnc_sw.Widgets.Logic

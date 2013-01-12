@@ -1,7 +1,7 @@
 Metadata:
 	Title: C&C Meets Star Wars
 	Description: The classic mod reborn in the OpenRA engine
-	Version: 1.7
+	Version: 1.8
 	Author: Nyerguds (Conversion by Dan9550)
 
 Folders:
@@ -63,6 +63,7 @@ Rules:
 	mods/cnc/rules/husks.yaml
 
 Sequences:
+	mods/cnc_sw/sequences/structures.yaml
 	mods/cnc/sequences/structures.yaml
 	mods/cnc_sw/sequences/vehicles.yaml
 	mods/cnc/sequences/vehicles.yaml
