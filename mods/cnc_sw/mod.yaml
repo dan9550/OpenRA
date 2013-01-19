@@ -1,7 +1,7 @@
 Metadata:
 	Title: C&C Meets Star Wars
 	Description: The classic mod reborn in the OpenRA engine
-	Version: 1.8
+	Version: release-20130119
 	Author: Nyerguds (Conversion by Dan9550)
 
 Folders:
@@ -45,7 +45,6 @@ Rules:
 	mods/cnc/rules/defaults.yaml
 	mods/cnc_sw/rules/system.yaml
 	mods/cnc/rules/system.yaml
-	#Hopefully this will overide and replace the tooltips :S
 	mods/cnc_sw/rules/structures.yaml
 	mods/cnc/rules/structures.yaml
 	mods/cnc_sw/rules/infantry.yaml
@@ -130,7 +129,7 @@ LoadScreen: CncSwLoadScreen
 	InstallerMenuWidget: INSTALL_PANEL
 	InstallerBackgroundWidget: INSTALL_BACKGROUND
 	TestFile: starwars.mix
-	PackageURL: http://10.0.2.254/cnc_sw/cnc_sw-packages.zip
+	PackageURL: http://doesnotexist.com/cnc_sw/cnc_sw-packages.zip
 
 ServerTraits:
 	LobbyCommands

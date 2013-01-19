@@ -450,53 +450,17 @@ Actors:
 	Actor122: e1
 		Location: 44,29
 		Owner: GDI
-	Actor123: e3
-		Location: 31,32
-		Owner: GDI
-	Actor124: e3
-		Location: 29,31
-		Owner: GDI
-	Actor125: e3
-		Location: 27,30
-		Owner: GDI
-	Actor126: e3
-		Location: 25,29
-		Owner: GDI
-	Actor127: e3
-		Location: 54,32
-		Owner: GDI
-	Actor128: e3
-		Location: 51,32
-		Owner: GDI
-	Actor130: jeep
-		Location: 35,28
-		Owner: GDI
-	Actor131: jeep
-		Location: 30,28
-		Owner: GDI
-	Actor132: mtnk
-		Location: 46,26
+	Actor123: orca
+		Location: 30,18
 		Owner: GDI
 	Actor133: mtnk
 		Location: 48,26
-		Owner: GDI
-	Actor134: mtnk
-		Location: 47,28
-		Owner: GDI
-	Actor135: htnk
-		Location: 42,21
-		Owner: GDI
-	Actor136: htnk
-		Location: 40,21
 		Owner: GDI
 	Actor137: orca
 		Location: 36,17
 		Owner: GDI
 	Actor138: orca
 		Location: 38,19
-		Owner: GDI
-	Actor139: orca
-		Location: 30,18
 		Owner: GDI
 	Actor141: tc05
 		Location: 21,35
@@ -603,59 +567,17 @@ Actors:
 	Actor171: fix
 		Location: 43,62
 		Owner: Nod
-	Actor176: bike
-		Location: 35,47
-		Owner: Nod
-	Actor177: bike
-		Location: 37,47
-		Owner: Nod
-	Actor178: bike
-		Location: 39,47
-		Owner: Nod
 	Actor179: ltnk
 		Location: 33,61
-		Owner: Nod
-	Actor180: ltnk
-		Location: 33,62
-		Owner: Nod
-	Actor181: ltnk
-		Location: 35,62
-		Owner: Nod
-	Actor182: ltnk
-		Location: 35,61
 		Owner: Nod
 	Actor183: e1
 		Location: 34,51
 		Owner: Nod
-	Actor184: e1
-		Location: 47,53
-		Owner: Nod
-	Actor185: e1
-		Location: 26,48
-		Owner: Nod
-	Actor186: e1
-		Location: 19,48
-		Owner: Nod
-	Actor187: e1
-		Location: 17,50
-		Owner: Nod
 	Actor188: e3
 		Location: 34,53
 		Owner: Nod
-	Actor189: e3
-		Location: 34,54
-		Owner: Nod
 	Actor190: e3
 		Location: 35,53
-		Owner: Nod
-	Actor191: e3
-		Location: 35,54
-		Owner: Nod
-	Actor192: e3
-		Location: 34,55
-		Owner: Nod
-	Actor193: e3
-		Location: 35,55
 		Owner: Nod
 	Actor194: e1
 		Location: 30,53

@@ -1,0 +1,20 @@
+proc:
+	idle:
+		Start: 0
+		Length: 6
+		Tick: 60
+	damaged-idle:
+		Start: 30
+		Length: 6
+		Tick: 60
+	dead:
+		Start: 60
+	make: procmake
+		Start: 0
+		Length: *
+	lights: proctwr
+		Start: 0
+		Length: 1
+	damaged-lights: proctwr
+		Start: 6
+		Length: 1
