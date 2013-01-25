@@ -8,8 +8,8 @@
     <ProjectGuid>{C96D221D-2D2F-4E6E-9D54-F3C01F24A7C5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OpenRA.Mods.cnc_sw</RootNamespace>
-    <AssemblyName>OpenRA.Mods.cnc_sw</AssemblyName>
+    <RootNamespace>OpenRA.Mods.Cnc_sw</RootNamespace>
+    <AssemblyName>OpenRA.Mods.Cnc_sw</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

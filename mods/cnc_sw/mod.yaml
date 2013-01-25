@@ -1,7 +1,7 @@
 Metadata:
 	Title: C&C Meets Star Wars
 	Description: The classic mod reborn in the OpenRA engine
-	Version: release-20130119
+	Version: release-20130125
 	Author: Nyerguds (Conversion by Dan9550)
 
 Folders:
@@ -85,7 +85,7 @@ Assemblies:
 
 ChromeLayout:
 	mods/cnc_sw/chrome/mainmenu.yaml
-	mods/cnc_sw/chrome/ingame.yaml
+	mods/cnc/chrome/ingame.yaml
 	mods/cnc_sw/chrome/install.yaml
 	mods/cnc_sw/chrome/lobby.yaml
 	mods/cnc/chrome/serverbrowser.yaml
