@@ -1,7 +1,7 @@
 Metadata:
 	Title: C&C Meets Star Wars
 	Description: The classic mod reborn in the OpenRA engine
-	Version: release-20130125
+	Version: release-20130304
 	Author: Nyerguds (Conversion by Dan9550)
 
 Folders:
@@ -16,13 +16,9 @@ Folders:
 	~^/Content/cnc
 
 Packages:
-	desestar.mix
-	wintstar.mix
 	tempstar.mix
-	snowstar.mix
 	starmain.mix
 	starmusc.mix
-	starscen.mix
 	starvocs.mix
 	starwars.mix
 	#Stock C&C95 Pakcages
