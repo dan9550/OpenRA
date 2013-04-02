@@ -7,6 +7,7 @@
 			Rough: 40
 			Road: 100
 			Ore: 70
+			Gems: 70
 			Beach: 40
 		ROT: 5
 	SelectionDecorations:
@@ -32,6 +33,8 @@
 	GpsDot:
 		String:Vehicle
 	WithSmoke:
+	UpdatesPlayerStatistics:
+	DebugMuzzlePositions:
 
 ^Tank:
 	AppearsOnRadar:
@@ -42,6 +45,7 @@
 			Rough: 70
 			Road: 100
 			Ore: 70
+			Gems: 70
 			Beach: 70
 		ROT: 5
 	SelectionDecorations:
@@ -67,6 +71,8 @@
 	GpsDot:
 		String:Vehicle
 	WithSmoke:
+	UpdatesPlayerStatistics:
+	DebugMuzzlePositions:
 
 ^Infantry:
 	AppearsOnRadar:
@@ -84,6 +90,7 @@
 			Rough: 80
 			Road: 100
 			Ore: 80
+			Gems: 80
 			Beach: 80
 	SelectionDecorations:
 	Selectable:
@@ -92,6 +99,8 @@
 		TargetTypes: Ground
 	RenderInfantry:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	AttackMove:
 	Passenger:
 		CargoType: Infantry
@@ -114,6 +123,8 @@
 	RepairableNear:
 		Buildings: hosp
 		CloseEnough: 1
+	UpdatesPlayerStatistics:
+	DebugMuzzlePositions:
 
 ^Ship:
 	AppearsOnRadar:
@@ -141,6 +152,8 @@
 	GpsDot:
 		String:Ship
 	WithSmoke:
+	UpdatesPlayerStatistics:
+	DebugMuzzlePositions:
 
 ^Plane:
 	AppearsOnRadar:
@@ -169,6 +182,8 @@
 	GivesBounty:
 	GpsDot:
 		String:Plane
+	UpdatesPlayerStatistics:
+	DebugMuzzlePositions:
 
 ^Helicopter:
 	Inherits: ^Plane
@@ -195,8 +210,9 @@
 	RenderBuilding:
 	WithBuildingExplosion:
 	RepairableBuilding:
+	EngineerRepairable:
 	EmitInfantryOnSell:
-		ActorTypes: e1,e1,e1,c1,c2,e6
+		ActorTypes: e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,e6,e6,e6,e6,e6
 	MustBeDestroyed:
 	GivesExperience:
 #	FrozenUnderFog:
@@ -210,6 +226,9 @@
 	Sellable:
 	AcceptsSupplies:
 	GivesBounty:
+	UpdatesPlayerStatistics:
+	C4Demolishable:
+	DebugMuzzlePositions:
 
 ^Wall:
 	AppearsOnRadar:
@@ -242,10 +261,13 @@
 	ProximityCaptor:
 		Types:Wall
 	Sellable:
+	UpdatesPlayerStatistics:
+	C4Demolishable:
 
 ^TechBuilding:
 	Inherits: ^Building
 	-RepairableBuilding:
+	-EngineerRepairable:
 	Health:
 		HP: 400
 	Armor:
@@ -259,6 +281,30 @@
 	-Sellable:
 	-Capturable:
 	-CapturableBar:
+
+^CivInfantry:
+	Inherits: ^Infantry
+	Selectable:
+		Voice: CivilianMaleVoice
+		Bounds: 12,17,0,-9
+	Valued:
+		Cost: 70
+	Tooltip:
+		Name: Civilian
+	Health:
+		HP: 20
+	Mobile:
+		Speed: 4
+	RevealsShroud:
+		Range: 2
+	Armament:
+		Weapon: Pistol
+	AttackFrontal:
+	ProximityCaptor:
+		Types:CivilianInfantry
+	-RenderInfantry:
+	RenderInfantryPanic:
+	ScaredyCat:
 
 ^CivBuilding:
 	Inherits: ^TechBuilding
@@ -292,6 +338,12 @@
 		UseTerrainPalette: true
 	ProximityCaptor:
 		Types:Tree
+	Health:
+		HP: 500
+	DeadBuildingState:
+	Armor:
+		Type: Wood
+	AutoTargetIgnore:
 
 ^Husk:
 	Husk:
@@ -335,6 +387,7 @@
 		HP: 750
 	ProximityCaptor:
 		Types:Bridge
+	AutoTargetIgnore:
 
 ^SHBridge:
 	Tooltip:
@@ -349,6 +402,7 @@
 		HP: 750
 	ProximityCaptor:
 		Types:Bridge
+	AutoTargetIgnore:
 
 ^STDBridge:
 	Tooltip:
@@ -363,6 +417,7 @@
 		HP: 750
 	ProximityCaptor:
 		Types:Bridge
+	AutoTargetIgnore:
 
 #Desert Terrain Expansion:
 ^Rock:

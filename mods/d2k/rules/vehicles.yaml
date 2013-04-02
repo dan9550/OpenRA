@@ -131,12 +131,14 @@ HARVESTER.starport:
 		Range: 8
 	RenderUnit:
 	WithMuzzleFlash:
+	Armament:
+		Weapon: M60mg
+		LocalOffset: 256,0,128
 	AttackFrontal:
-		PrimaryWeapon: M60mg
-		PrimaryOffset: 0,-6,0,-3
-		#PrimaryLocalOffset: 1,-1,0,-3,0, -1,-1,0,-3,0
 	AutoTarget:
 		InitialStance: Defend
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeTiny
 		EmptyWeapon: UnitExplodeTiny
@@ -172,11 +174,14 @@ QUAD:
 		Range: 7
 	RenderUnit:
 		Image: QUAD
+	Armament:
+		Weapon: QuadRockets
+		LocalOffset: 128,0,85#-4
 	AttackFrontal:
-		PrimaryWeapon: QuadRockets
-		PrimaryLocalOffset: 0,-3,0,-2,0 #-4
 	AutoTarget:
 		InitialStance: Defend
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeTiny
 		EmptyWeapon: UnitExplodeTiny
@@ -213,15 +218,18 @@ QUAD.starport:
 		Range: 6
 	Turreted:
 		ROT: 6
+		AlignWhenIdle: true
+	Armament:
+		Weapon: 90mm
+		Recoil: 171
+		RecoilRecovery: 34
+		LocalOffset: 85,0,128
 	AttackTurreted:
-		AlignIdleTurrets: true
-		PrimaryWeapon: 90mm
-		PrimaryRecoil: 4
-		PrimaryRecoilRecovery: 0.8
-		PrimaryLocalOffset: 0,-2,0,-3,0
 	RenderUnitTurreted:
 	AutoTarget:
 		InitialStance: Defend
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
@@ -234,9 +242,6 @@ QUAD.starport:
 		HP: 100
 	ThrowsParticle@turret:
 		Anim: turret
-		Spread: 3,3
-		Speed: 6
-		AnimKey: turret
 
 SIEGETANK:
 	Inherits: ^Tank
@@ -265,11 +270,12 @@ SIEGETANK:
 		Range: 5
 	Turreted:
 		ROT: 3
+	Armament:
+		Weapon: 155mm
+		Recoil: 299
+		RecoilRecovery: 19
+		LocalOffset: 171,0,299
 	AttackFrontal:
-		PrimaryWeapon: 155mm
-		PrimaryRecoil: 7
-		PrimaryRecoilRecovery: 0.45
-		PrimaryLocalOffset: 0,-4,0,-7,0
 	RenderUnitTurreted:
 		Image: SIEGETANK
 	Explodes:
@@ -277,6 +283,8 @@ SIEGETANK:
 		EmptyWeapon: UnitExplodeScale
 	AutoTarget:
 		InitialStance: Defend
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Selectable:
 		Bounds: 30,30
 	LeavesHusk:
@@ -288,9 +296,6 @@ SIEGETANK.Husk:
 		Icon: siegetankicon
 	ThrowsParticle@turret:
 		Anim: turret
-		Spread: 3,3
-		Speed: 6
-		AnimKey: turret
 	RenderUnit:
 		Image: SIEGETANK
 
@@ -328,11 +333,14 @@ MISSILETANK:
 		Range: 6
 	RenderUnit:
 		Image: MISSILETANK
+	Armament:
+		Weapon: 227mm
+		LocalOffset: -213,128,171, -213,-256,171
 	AttackFrontal:
-		PrimaryWeapon: 227mm
-		PrimaryLocalOffset: 3,5,0,-4,0, -6,5,0,-4,0
 	AutoTarget:
 		InitialStance: Defend
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeScale
 		EmptyWeapon: UnitExplodeScale

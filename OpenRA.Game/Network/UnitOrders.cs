@@ -20,7 +20,7 @@ namespace OpenRA.Network
 	{
 		static Player FindPlayerByClient(this World world, Session.Client c)
 		{
-			/* todo: this is still a hack.
+			/* TODO: this is still a hack.
 			 * the cases we're trying to avoid are the extra players on the host's client -- Neutral, other MapPlayers,..*/
 			return world.Players.FirstOrDefault(
 				p => (p.ClientIndex == c.Index && p.PlayerReference.Playable));
@@ -44,6 +44,7 @@ namespace OpenRA.Network
 						{
 							var player = world != null ? world.FindPlayerByClient(client) : null;
 							var suffix = (player != null && player.WinState == WinState.Lost) ? " (Dead)" : "";
+							suffix = client.IsObserver ? " (Spectator)" : suffix;
 							Game.AddChatLine(client.ColorRamp.GetColor(0), client.Name + suffix, order.TargetString);
 						}
 						else
@@ -111,14 +112,24 @@ namespace OpenRA.Network
 				case "HandshakeRequest":
 					{
 						var request = HandshakeRequest.Deserialize(order.TargetString);
+						var localMods = orderManager.LobbyInfo.GlobalSettings.Mods.Select(m => "{0}@{1}".F(m,Mod.AllMods[m].Version)).ToArray();
 
+						// Check if mods match
+						if (localMods.FirstOrDefault().ToString().Split('@')[0] != request.Mods.FirstOrDefault().ToString().Split('@')[0])
+							throw new InvalidOperationException("Server's mod ({0}) and yours ({1}) don't match".F(localMods.FirstOrDefault().ToString().Split('@')[0], request.Mods.FirstOrDefault().ToString().Split('@')[0]));
 						// Check that the map exists on the client
 						if (!Game.modData.AvailableMaps.ContainsKey(request.Map))
-							throw new InvalidOperationException("Missing map {0}".F(request.Map));
+						{
+							if (Game.Settings.Game.AllowDownloading)
+								Game.DownloadMap(request.Map);
+							else
+								throw new InvalidOperationException("Missing map {0}".F(request.Map));
+						}
 
 						var info = new Session.Client()
 						{
 							Name = Game.Settings.Player.Name,
+							PreferredColorRamp = Game.Settings.Player.ColorRamp,
 							ColorRamp = Game.Settings.Player.ColorRamp,
 							Country = "random",
 							SpawnPoint = 0,
@@ -126,7 +137,6 @@ namespace OpenRA.Network
 							State = Session.ClientState.NotReady
 						};
 
-						var localMods = orderManager.LobbyInfo.GlobalSettings.Mods.Select(m => "{0}@{1}".F(m,Mod.AllMods[m].Version)).ToArray();
 						var response = new HandshakeResponse()
 						{
 							Client = info,
@@ -159,7 +169,7 @@ namespace OpenRA.Network
 
 				case "SetStance":
 					{
-						if (Game.orderManager.LobbyInfo.GlobalSettings.LockTeams)
+						if (!Game.orderManager.LobbyInfo.GlobalSettings.FragileAlliances)
 							return;
 
 						var targetPlayer = order.Player.World.Players.FirstOrDefault(p => p.InternalName == order.TargetString);

@@ -7,13 +7,13 @@ MCV:
 		Icon: mcvicnh
 		Description: Deploys into another Construction Yard.\n  Unarmed
 	Buildable:
-		BuildPaletteOrder: 70
-		Prerequisites: fix
+		BuildPaletteOrder: 100
+		Prerequisites: anyhq
 		Owner: gdi,nod
 	Selectable:
 		Priority: 3
 	Mobile:
-		Speed: 6
+		Speed: 5
 	Health:
 		HP: 750
 	Armor: 
@@ -35,6 +35,9 @@ MCV:
 		HuskActor: MCV.Husk
 	-GainsExperience:
 	-AcceptsCloakCrate:
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
 
 HARV:
 	Inherits: ^Tank
@@ -50,11 +53,12 @@ HARV:
 		Owner: gdi,nod
 	Selectable:
 		Priority: 7
-		Bounds: 44,44
+		Bounds: 36,36
 	Harvester:
-		Resources: Tiberium, Blue Tiberium
-		PipCount: 5
-		Capacity: 15
+		Resources: Tiberium, BlueTiberium
+		PipCount: 7
+		Capacity: 20
+		UnloadTicksPerBale: 12		# hardcoded default is 4
 		# How far away from our linked proc (refinery) to find resources (in cells):
 		SearchFromProcRadius: 24
 		# How far away from last harvest order location to find more resources (in cells):
@@ -87,23 +91,28 @@ APC:
 		Prerequisites: pyle
 		Owner: gdi
 	Mobile:
-		ROT: 5
-		Speed: 10
+		ROT: 8
+		Speed: 9
 	Health:
 		HP: 200
 	Armor:
 		Type: Heavy
 	RevealsShroud:
-		Range: 5
+		Range: 7
 	Turreted:
 		ROT: 10
+	Armament@PRIMARY:
+		Weapon: APCGun
+		LocalOffset: 85,85,299, 85,-85,299
+	Armament@SECONDARY:
+		Weapon: APCGun.AA
+		LocalOffset: 85,85,299, 85,-85,299
 	AttackTurreted:
-		PrimaryWeapon: APCGun
-		PrimaryOffset: 0,0,0,0
-		PrimaryLocalOffset: 2,-2,0,-7,0, -2,-2,0,-7,0
 	WithMuzzleFlash:
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Cargo:
 		Types: Infantry
 		MaxWeight: 5
@@ -122,7 +131,7 @@ ARTY:
 		Description: Long-range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Tanks, Aircraft
 	Buildable:
 		BuildPaletteOrder: 40
-		Prerequisites: hq
+		Prerequisites: anyhq
 		Owner: nod
 	Mobile:
 		ROT: 2
@@ -132,13 +141,19 @@ ARTY:
 	Armor:
 		Type: Light
 	RevealsShroud:
-		Range: 6
+		Range: 9
+	Armament:
+		Weapon: ArtilleryShell
+		LocalOffset: 299, 0, 128
 	AttackFrontal:
-		PrimaryWeapon: ArtilleryShell
-		PrimaryOffset: 0,-7,0,-3
 	RenderUnit:
 	Explodes:
+		Weapon: UnitExplode
+		Chance: 75	
 	AutoTarget:
+		InitialStance: Defend
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	LeavesHusk:
 		HuskActor: ARTY.Husk
 
@@ -152,27 +167,29 @@ FTNK:
 		Description: Heavily armored flame-throwing vehicle.\n  Strong vs Infantry, Buildings\n  Weak vs Aircraft
 	Buildable:
 		BuildPaletteOrder: 50
-		Prerequisites: hq
+		Prerequisites: anyhq
 		Owner: nod
 	Mobile:
-		ROT: 5
-		Speed: 9
+		ROT: 7
+		Speed: 8
 	Health:
 		HP: 350
 	Armor:
 		Type: Light
 	RevealsShroud:
-		Range: 4
+		Range: 5
+	Armament:
+		Weapon: BigFlamer
+		LocalOffset: 213,213,-85, 213,-213,-85
 	AttackFrontal:
-		PrimaryWeapon: BigFlamer
-		PrimaryOffset: 0,-5,3,2
-		PrimaryLocalOffset: 2,0,0,0,0, -2,0,0,0,0
 	RenderUnit:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	WithMuzzleFlash:
 	Explodes:
-		Weapon: BigFlamer
-		EmptyWeapon: BigFlamer
+		Weapon: FlametankExplode
+		EmptyWeapon: FlametankExplode
 	LeavesHusk:
 		HuskActor: FTNK.Husk
 
@@ -189,29 +206,32 @@ BGGY:
 		Prerequisites: afld
 		Owner: nod
 	Mobile:
-		ROT: 10
-		Speed: 16
+		ROT: 12
+		Speed: 12
 	Health:
-		HP: 140
+		HP: 120
 	Armor:
 		Type: Light
 	RevealsShroud:
-		Range: 5
+		Range: 7
 	Turreted:
 		ROT: 10
+		Offset: -43,0,128
+	Armament:
+		Weapon: MachineGun
 	AttackTurreted:
-		PrimaryWeapon: MachineGun
-		PrimaryOffset: 0,1,0,-3
 	WithMuzzleFlash:
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	LeavesHusk:
 		HuskActor: BGGY.Husk
 
 BIKE:
 	Inherits: ^Vehicle
 	Valued:
-		Cost: 400
+		Cost: 500
 	Tooltip:
 		Name: Recon Bike
 		Icon: bikeicnh
@@ -221,27 +241,30 @@ BIKE:
 		Prerequisites: afld
 		Owner: nod
 	Mobile:
-		ROT: 10
-		Speed: 20
+		ROT: 12
+		Speed: 15
 		TerrainSpeeds:
-			Clear: 42
-			Rough: 25
+			Clear: 70
+			Rough: 35
 			Road: 100
-			Tiberium: 25
-			BlueTiberium: 25
-			Beach: 25
+			Tiberium: 35
+			BlueTiberium: 35
+			Beach: 35
 	Health:
 		HP: 120
 	Armor: 
 		Type: Light
 	RevealsShroud:
-		Range: 7
+		Range: 8
+	Armament:
+		Weapon: BikeRockets
+		LocalOffset: -128, -170, 170, -128, 170, 170
+		LocalYaw: 100, -100
 	AttackFrontal:
-		PrimaryWeapon: BikeRockets
-		PrimaryOffset: 0,0,0,-2
-		PrimaryLocalOffset: -4,0,0,0,25, 4,0,0,0,-25
 	RenderUnit:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	LeavesHusk:
 		HuskActor: BIKE.Husk
 	
@@ -258,22 +281,25 @@ JEEP:
 		Prerequisites: weap
 		Owner: gdi
 	Mobile:
-		ROT: 10
-		Speed: 14
+		ROT: 11
+		Speed: 11
 	Health:
-		HP: 150
+		HP: 160
 	Armor:
 		Type: Light
 	RevealsShroud:
-		Range: 7
+		Range: 8
 	Turreted:
 		ROT: 10
+		Offset: -85,0,171
+	Armament:
+		Weapon: MachineGun
 	AttackTurreted:
-		PrimaryWeapon: MachineGun
-		PrimaryOffset: 0,2,0,-4
 	WithMuzzleFlash:
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	LeavesHusk:
 		HuskActor: JEEP.Husk
 
@@ -286,26 +312,30 @@ LTNK:
 		Icon: ltnkicnh
 		Description: Light Tank, good for scouting.\n  Strong vs Light Vehicles\n  Weak vs Tanks, Aircraft
 	Buildable:
-		BuildPaletteOrder: 30
-		Prerequisites: hq
+		BuildPaletteOrder: 40
+		Prerequisites: anyhq
 		Owner: nod
 	Mobile:
-		Speed: 9
+		ROT: 7	
+		Speed: 8
 	Health:
 		HP: 300
 	Armor:
 		Type: Heavy
 	RevealsShroud:
-		Range: 4
+		Range: 6
 	Turreted:
 		ROT: 5
+	Armament:
+		Weapon: 70mm
+		Recoil: 85
+		RecoilRecovery: 17
+		LocalOffset: -128,0,85
 	AttackTurreted:
-		PrimaryWeapon: 70mm
-		PrimaryRecoil: 2
-		PrimaryRecoilRecovery: 0.4
-		PrimaryLocalOffset: 0,3,0,-2,0
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	LeavesHusk:
 		HuskActor: LTNK.Husk
 	Explodes:
@@ -321,33 +351,36 @@ MTNK:
 		Icon: mtnkicnh
 		Description: General-Purpose GDI Tank.\n  Strong vs Tanks, Light Vehicles\n  Weak vs Infantry, Aircraft
 	Buildable:
-		BuildPaletteOrder: 30
-		Prerequisites: hq
+		BuildPaletteOrder: 40
+		Prerequisites: anyhq
 		Owner: gdi
 	Mobile:
-		Speed: 7
+		Speed: 6
 	Health:
 		HP: 400
 	Armor:
 		Type: Heavy
 	RevealsShroud:
-		Range: 5
+		Range: 6
 	Turreted:
 		ROT: 5
+	Armament:
+		Weapon: 120mm
+		Recoil: 128
+		RecoilRecovery: 26
+		LocalOffset: 0,0,43
 	AttackTurreted:
-		PrimaryWeapon: 120mm
-		PrimaryRecoil: 3
-		PrimaryRecoilRecovery: 0.6
-		PrimaryLocalOffset: 0,0,0,-1,0
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	LeavesHusk:
 		HuskActor: MTNK.Husk
 	Explodes:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	Selectable:
-		Bounds: 34,34
+		Bounds: 28,28
 
 HTNK:
 	Inherits: ^Tank
@@ -363,25 +396,31 @@ HTNK:
 		Owner: gdi
 	Mobile:
 		Crushes: wall, heavywall, crate, infantry
-		Speed: 3
+		Speed: 4
+		ROT: 3
 	Health:
-		HP: 600
+		HP: 900
 	Armor:
 		Type: Heavy
 	RevealsShroud:
 		Range: 6
 	Turreted:
 		ROT: 2
+	Armament@PRIMARY:
+		Weapon: 120mmDual
+		LocalOffset: 800, 180, 340, 800, -180, 340
+		Recoil: 170
+		RecoilRecovery: 42
+	Armament@SECONDARY:
+		Weapon: MammothMissiles
+		LocalOffset: -85, 384, 340, -85, -384, 340
+		LocalYaw: -100, 100
+		Recoil: 42
 	AttackTurreted:
-		PrimaryWeapon: 120mmDual
-		SecondaryWeapon: MammothMissiles
-		PrimaryLocalOffset: -5,-5,0,-10,0, 5,-5,0,-10,0
-		SecondaryLocalOffset: -9,2,0,0,25, 9,2,0,0,-25
-		PrimaryRecoil: 4
-		SecondaryRecoil: 1
-		PrimaryRecoilRecovery: 1
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	SelfHealing:
 		Ticks: 10
 		HealIfBelow: 50%
@@ -392,7 +431,7 @@ HTNK:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	Selectable:
-		Bounds: 40,38,0,-3
+		Bounds: 34,34,0,-3
 
 MSAM:
 	Inherits: ^Tank
@@ -404,10 +443,11 @@ MSAM:
 		Description: Long range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Tanks, Aircraft
 	Buildable:
 		BuildPaletteOrder: 50
-		Prerequisites: hq
+		Prerequisites: anyhq
 		Owner: gdi
 	Mobile:
 		Speed: 6
+		ROT: 4
 	Health:
 		HP: 120
 	Armor:
@@ -416,12 +456,15 @@ MSAM:
 		Range: 10
 	Turreted:
 		ROT: 255
+		Offset: -256,0,128
+	Armament:
+		Weapon: 227mm
+		LocalOffset: 213,128,0, 213,-128,0
 	AttackFrontal:
-		PrimaryWeapon: 227mm
-		PrimaryOffset: 0,6,0,-3
-		PrimaryLocalOffset: 3,-5,0,0,0, -3,-5,0,0,0
 	RenderUnitTurretedAim:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	LeavesHusk:
 		HuskActor: MSAM.Husk
 
@@ -430,13 +473,13 @@ MLRS:
 	Valued:
 		Cost: 750
 	Tooltip:
-		Name: SSM Launcher
+		Name: Surface-to-Air Missile Launcher
 		Icon: mlrsicnh
-		Description: Long range artillery.\n  Strong vs Infantry, Aircraft\n  Weak vs Tanks, Aircraft
-#	Buildable:
-#		BuildPaletteOrder: 60
-#		Prerequisites: hq
-#		Owner: nod
+		Description: Powerful anti-air unit.\nCannot attack ground units.
+	Buildable:
+		BuildPaletteOrder: 70
+		Prerequisites: anyhq
+		Owner: nod
 	Mobile:
 		Speed: 6
 	Health:
@@ -447,15 +490,21 @@ MLRS:
 		Range: 10
 	Turreted:
 		ROT: 5
+		Offset: -128,0,128
+		AlignWhenIdle: true
+	Armament:
+		Weapon: Patriot
+		LocalOffset: 0,-171,0, 0,171,0
 	AttackTurreted:
-		PrimaryWeapon: HonestJohn
-		SecondaryWeapon: HonestJohn
-		PrimaryOffset: 0,3,0,-3
-		PrimaryLocalOffset: -4,0,0,0,0
-		SecondaryLocalOffset: 4,0,0,0,0
-		AlignIdleTurrets: true
 	RenderUnitTurretedAim:
 	AutoTarget:
+		InitialStance: Defend
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	RenderRangeCircle:
 	LeavesHusk:
 		HuskActor: MLRS.Husk
 
@@ -472,25 +521,54 @@ STNK:
 		Prerequisites: tmpl
 		Owner: nod
 	Mobile:
-		Speed: 14
+		ROT: 8
+		Speed: 10
+		Crushes: crate, infantry
 	Health:
 		HP: 150
 	Armor:
 		Type: Light
 	RevealsShroud:
-		Range: 4
+		Range: 7
 	Cloak:
-		InitialDelay: 125
-		CloakDelay: 125
-		CloakSound: appear1.aud
-		UncloakSound: appear1.aud
+		InitialDelay: 80
+		CloakDelay: 80
+		CloakSound: trans1.aud
+		UncloakSound: trans1.aud
+	Armament:
+		Weapon: 227mm.stnk
+		LocalOffset: 213,43,128, 213,-43,128
 	AttackFrontal:
-		PrimaryWeapon: 227mm.stnk
-		PrimaryOffset: 0,-5,0,-3
-		PrimaryLocalOffset: 1,0,0,0,0, -1,0,0,0,0
 	RenderUnit:
 	AutoTarget:
 		InitialStance: HoldFire
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	TargetableUnit:
 	LeavesHusk:
 		HuskActor: STNK.Husk
+
+MHQ:
+	Inherits: ^Vehicle
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Mobile Headquarter
+		Icon: mhqicnh
+		Description: Base of operations
+	Health:
+		HP: 200
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 6
+	RevealsShroud:
+		Range: 6
+	RenderUnit:
+	WithSpinner:
+		Offset: -256,0,256
+	AttackMove:
+		JustMove: yes
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall

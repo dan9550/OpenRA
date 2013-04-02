@@ -40,6 +40,7 @@
 		RepairBuildings: repair
 	DetectCloaked:
 		Range: 1
+	DebugMuzzlePositions:
 
 ^Tank:
 	AppearsOnRadar:
@@ -81,6 +82,7 @@
 	#WithSmoke:
 	Repairable:
 		RepairBuildings: repair
+	DebugMuzzlePositions:
 
 ^Husk:
 	Health:
@@ -142,6 +144,8 @@
 	RenderInfantry:
 	AutoTarget:
 		InitialStance: Defend
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	AttackMove:
 	Passenger:
 		CargoType: Infantry
@@ -169,6 +173,7 @@
 		CloseEnough: 1
 	DetectCloaked:
 		Range: 2
+	DebugMuzzlePositions:
 
 ^Plane:
 	AppearsOnRadar:
@@ -199,6 +204,7 @@
 	ProximityCaptor:
 		Types:Plane
 	GivesBounty:
+	DebugMuzzlePositions:
 
 ^Helicopter:
 	Inherits: ^Plane
@@ -257,3 +263,5 @@
 		Types:Building
 	Sellable:
 	GivesBounty:
+	C4Demolishable:
+	DebugMuzzlePositions:

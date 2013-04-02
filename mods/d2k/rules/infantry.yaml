@@ -16,8 +16,9 @@ RIFLE:
 		HP: 50
 	Mobile:
 		Speed: 5
+	Armament:
+		Weapon: M1Carbine
 	AttackFrontal:
-		PrimaryWeapon: M1Carbine
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:
@@ -48,6 +49,8 @@ ENGINEER:
 	Captures:
 	#TakeCover:
 	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
 	AttackMove:
 		JustMove: true
 
@@ -69,10 +72,13 @@ BAZOOKA:
 		HP: 45
 	Mobile:
 		Speed: 4
+	Armament@PRIMARY:
+		Weapon: RedEye
+		LocalOffset: 0,0,555
+	Armament@SECONDARY:
+		Weapon: Dragon
+		LocalOffset: 0,0,555
 	AttackFrontal:
-		PrimaryWeapon: RedEye
-		SecondaryWeapon: Dragon
-		PrimaryOffset: 0,0,0,-13
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:
@@ -100,11 +106,14 @@ MEDIC:
 	Mobile:
 		Speed: 4
 	AutoHeal:
+	Armament:
+		Weapon: Heal
 	AttackMedic:
-		PrimaryWeapon: Heal
 	Passenger:
 		PipType: Blue
 	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
 	AttackMove:
 		JustMove: true
 	RenderInfantry:
@@ -130,6 +139,8 @@ MEDIC:
 #		Speed: 4
 #	Passenger:
 #	-AutoTarget:
+#	-DebugRetiliateAgainstAggressor:
+#	-DebugNextAutoTargetScanTime:
 #	AttackMove:
 #		JustMove: true
 #	Transforms:

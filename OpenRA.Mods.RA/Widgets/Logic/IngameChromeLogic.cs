@@ -22,15 +22,16 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 		[ObjectCreator.UseCtor]
 		public IngameChromeLogic(World world)
 		{
-			Game.AddChatLine += AddChatLine;
-			Game.BeforeGameStart += UnregisterEvents;
-
 			var r = Ui.Root;
 			gameRoot = r.Get("INGAME_ROOT");
 			var optionsBG = gameRoot.Get("INGAME_OPTIONS_BG");
 
 			r.Get<ButtonWidget>("INGAME_OPTIONS_BUTTON").OnClick = () =>
+			{
 				optionsBG.Visible = !optionsBG.Visible;
+				if (world.LobbyInfo.IsSinglePlayer)
+					world.IssueOrder(Order.PauseGame());
+			};
 			
 			var cheatsButton = gameRoot.Get<ButtonWidget>("CHEATS_BUTTON");
 			cheatsButton.OnClick = () =>
@@ -49,11 +50,23 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 				objectivesButton.IsVisible = () => world.LocalPlayer != null;
 			}
 
-			optionsBG.Get<ButtonWidget>("DISCONNECT").OnClick = () => LeaveGame(optionsBG, world);
+			var moneybin = gameRoot.Get("INGAME_MONEY_BIN");
+			moneybin.Get<OrderButtonWidget>("SELL").GetKey = _ => Game.Settings.Keys.SellKey;
+			moneybin.Get<OrderButtonWidget>("POWER_DOWN").GetKey = _ => Game.Settings.Keys.PowerDownKey;
+			moneybin.Get<OrderButtonWidget>("REPAIR").GetKey = _ => Game.Settings.Keys.RepairKey;
 
+			var chatPanel = Game.LoadWidget(world, "CHAT_PANEL", Ui.Root, new WidgetArgs());
+			gameRoot.AddChild(chatPanel);
+
+			optionsBG.Get<ButtonWidget>("DISCONNECT").OnClick = () => LeaveGame(optionsBG, world);
 			optionsBG.Get<ButtonWidget>("SETTINGS").OnClick = () => Ui.OpenWindow("SETTINGS_MENU");
 			optionsBG.Get<ButtonWidget>("MUSIC").OnClick = () => Ui.OpenWindow("MUSIC_MENU");
-			optionsBG.Get<ButtonWidget>("RESUME").OnClick = () => optionsBG.Visible = false;
+			optionsBG.Get<ButtonWidget>("RESUME").OnClick = () =>
+			{
+				optionsBG.Visible = false;
+				if (world.LobbyInfo.IsSinglePlayer)
+					world.IssueOrder(Order.PauseGame());
+			};
 
 			optionsBG.Get<ButtonWidget>("SURRENDER").OnClick = () =>
 			{
@@ -95,17 +108,6 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			Game.LoadShellMap();
 			Ui.CloseWindow();
 			Ui.OpenWindow("MAINMENU_BG");
-		}
-
-		void UnregisterEvents()
-		{
-			Game.AddChatLine -= AddChatLine;
-			Game.BeforeGameStart -= UnregisterEvents;
-		}
-
-		void AddChatLine(Color c, string from, string text)
-		{
-			gameRoot.Get<ChatDisplayWidget>("CHAT_DISPLAY").AddLine(c, from, text);
 		}
 	}
 }

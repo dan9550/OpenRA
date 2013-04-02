@@ -127,14 +127,9 @@ namespace OpenRA.Graphics
 			using( new PerfSample("render_widgets") )
 			{
 				Ui.Draw();
-				var cursorName = Ui.Root.GetCursorOuter(Viewport.LastMousePos) ?? "default";
-				var cursorSequence = CursorProvider.GetCursorSequence(cursorName);
-				var cursorSprite = cursorSequence.GetSprite((int)cursorFrame);
 
-				renderer.SpriteRenderer.DrawSprite(cursorSprite,
-					Viewport.LastMousePos - cursorSequence.Hotspot,
-					Game.modData.Palette.GetPaletteIndex(cursorSequence.Palette),
-					cursorSprite.size);
+				var cursorName = Ui.Root.GetCursorOuter(Viewport.LastMousePos) ?? "default";
+				CursorProvider.DrawCursor(renderer, cursorName, Viewport.LastMousePos, (int)cursorFrame);
 			}
 
 			using( new PerfSample("render_flip") )
@@ -170,7 +165,7 @@ namespace OpenRA.Graphics
 			var avgPos = actors
 				.Select(a => (PVecInt)a.CenterLocation)
 				.Aggregate((a, b) => a + b) / actors.Count();
-			scrollPosition = NormalizeScrollPosition(((PVecFloat)avgPos - (PVecFloat)(1f / (2 * Zoom) * screenSize.ToFloat2())).ToInt2());
+			scrollPosition = NormalizeScrollPosition((avgPos.ToFloat2() - (1f / (2 * Zoom) * screenSize.ToFloat2())).ToInt2());
 		}
 
 		// Rectangle (in viewport coords) that contains things to be drawn

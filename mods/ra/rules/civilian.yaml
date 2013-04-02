@@ -1,9 +1,65 @@
+C1:
+	Inherits: ^CivInfantry
+
+C2:
+	Inherits: ^CivInfantry
+	Selectable:
+		Voice: CivilianFemaleVoice
+
+C3:
+	Inherits: ^CivInfantry
+
+C4:
+	Inherits: ^CivInfantry
+	Selectable:
+		Voice: CivilianFemaleVoice
+	RenderInfantryPanic:
+		Image: C2
+
+C5:
+	Inherits: ^CivInfantry
+	RenderInfantryPanic:
+		Image: C1
+
+C6:
+	Inherits: ^CivInfantry
+	Selectable:
+		Voice: CivilianFemaleVoice
+	RenderInfantryPanic:
+		Image: C2
+
+C7:
+	Inherits: ^CivInfantry
+	RenderInfantryPanic:
+		Image: C1
+
+C8:
+	Inherits: ^CivInfantry
+	Selectable:
+		Voice: CivilianFemaleVoice
+	RenderInfantryPanic:
+		Image: C2
+
+C9:
+	Inherits: ^CivInfantry
+	RenderInfantryPanic:
+		Image: C1
+
+C10:
+	Inherits: ^CivInfantry
+	Selectable:
+		Voice: CivilianFemaleVoice
+	RenderInfantryPanic:
+		Image: C2
+
 FCOM:
 	Inherits: ^TechBuilding
 	Building:
 		Power: -200
 		Footprint: xx xx
 		Dimensions: 2,2
+	Valued:
+		Cost: 2000
 	Health:
 		HP: 400
 	Armor:
@@ -49,9 +105,10 @@ V01.SNIPER:
 	AutoTarget:
 	Turreted:
 		ROT: 255
+	Armament:
+		Weapon: Sniper
+		LocalOffset: 469,0,0
 	AttackTurreted:
-		PrimaryWeapon: Sniper
-		PrimaryLocalOffset: 0,-11,0,0,0
 	Cargo:
 		InitialUnits: sniper
 		Types: Infantry
@@ -168,6 +225,13 @@ V18:
 	Inherits: ^CivField
 	EditorTilesetFilter:
 		ExcludeTilesets: DESERT
+		
+V19:
+	Inherits: ^CivBuilding
+	EditorTilesetFilter:
+		ExcludeTilesets: DESERT
+	Tooltip:
+		Name: Oil Pump
 
 BARL:
 	Inherits: ^TechBuilding
@@ -179,6 +243,10 @@ BARL:
 		Weapon: BarrelExplode
 	Tooltip:
 		Name: Explosive Barrel
+	AutoTargetIgnore:
+	Armor:
+		Type: Light
+	-C4Demolishable:
 
 BRL3:
 	Inherits: ^TechBuilding
@@ -190,6 +258,10 @@ BRL3:
 		Weapon: BarrelExplode
 	Tooltip:
 		Name: Explosive Barrel
+	AutoTargetIgnore:
+	Armor:
+		Type: Light
+	-C4Demolishable:
 
 MISS:
 	Inherits: ^TechBuilding
@@ -198,10 +270,14 @@ MISS:
 	Building:
 		Footprint: xxx xxx
 		Dimensions: 3,2
+	Valued:
+		Cost: 2000
 	Health:
 		HP: 400
 	Armor:
 		Type: Wood
+	Tooltip:
+		Name: Technology Center
 	Bib:
 
 BIO:
@@ -229,6 +305,7 @@ OILB:
 		Range: 3
 	Capturable:
 	CapturableBar:
+	EngineerRepairable:
 	-MustBeDestroyed:
 	CashTrickler:
 		Period: 250

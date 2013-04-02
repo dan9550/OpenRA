@@ -1,6 +1,6 @@
 #region Copyright & License Information
 /*
- * Copyright 2007-2011 The OpenRA Developers (see AUTHORS)
+ * Copyright 2007-2013 The OpenRA Developers (see AUTHORS)
  * This file is part of OpenRA, which is free software. It is made
  * available to you under the terms of the GNU General Public License
  * as published by the Free Software Foundation. For more information,
@@ -36,7 +36,8 @@ namespace OpenRA.GameRules
 		public int TimeOut = 0;
 		public bool Dedicated = false;
 		public bool DedicatedLoop = true;
-		public string DedicatedMOTD = null;
+		public bool LockBots = false;
+		public bool AllowVersionMismatch = false;
 
 		public ServerSettings() { }
 
@@ -54,7 +55,8 @@ namespace OpenRA.GameRules
 			TimeOut = other.TimeOut;
 			Dedicated = other.Dedicated;
 			DedicatedLoop = other.DedicatedLoop;
-			DedicatedMOTD = other.DedicatedMOTD;
+			LockBots = other.LockBots;
+			AllowVersionMismatch = other.AllowVersionMismatch;
 		}
 	}
 
@@ -66,6 +68,7 @@ namespace OpenRA.GameRules
 		public float LongTickThreshold = 0.001f;
 		public bool SanityCheckUnsyncedCode = false;
 		public int Samples = 25;
+		public bool IgnoreVersionMismatch = false;
 	}
 
 	public class GraphicSettings
@@ -90,7 +93,7 @@ namespace OpenRA.GameRules
 		public float VideoVolume = 0.5f;
 		public bool Shuffle = false;
 		public bool Repeat = false;
-		public bool ShellmapMusic = true;
+		public bool MapMusic = true;
 		public string Engine = "AL";
 		
 		public SoundCashTicks SoundCashTickType = SoundCashTicks.Extreme;
@@ -114,11 +117,36 @@ namespace OpenRA.GameRules
 		public MouseScrollType MouseScroll = MouseScrollType.Standard;
 		public float ViewportEdgeScrollStep = 10f;
 
+		public bool UseClassicMouseStyle = false;
+
 		// Internal game settings
 		public int Timestep = 40;
 
 		public string ConnectTo = "";
+		public bool AllowDownloading = true;
+		public string MapRepository = "http://content.open-ra.org/map/";
 	}
+
+	public class KeySettings
+	{
+		public string PauseKey = "f3";
+
+		public string CycleBaseKey = "backspace";
+		public string ToLastEventKey = "space";
+		public string ToSelectionKey = "home";
+		public string SellKey = "v";
+		public string PowerDownKey = "b";
+		public string RepairKey = "n";
+
+		public string AttackMoveKey = "a";
+		public string StopKey = "s";
+		public string ScatterKey = "x";
+		public string StanceCycleKey = "z";
+		public string DeployKey = "f";
+
+		public string CycleTabsKey = "tab";
+	}
+
 
 	public class Settings
 	{
@@ -130,6 +158,7 @@ namespace OpenRA.GameRules
 		public GraphicSettings Graphics = new GraphicSettings();
 		public ServerSettings Server = new ServerSettings();
 		public DebugSettings Debug = new DebugSettings();
+		public KeySettings Keys = new KeySettings();
 
 		public Dictionary<string, object> Sections;
 
@@ -144,6 +173,7 @@ namespace OpenRA.GameRules
 				{"Graphics", Graphics},
 				{"Server", Server},
 				{"Debug", Debug},
+				{"Keys", Keys},
 			};
 
 			// Override fieldloader to ignore invalid entries

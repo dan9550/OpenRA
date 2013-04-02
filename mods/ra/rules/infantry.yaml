@@ -20,9 +20,9 @@ DOG:
 		Speed: 7
 	RevealsShroud:
 		Range: 5
-	AutoTarget:
+	Armament:
+		Weapon: DogJaw
 	AttackLeap:
-		PrimaryWeapon: DogJaw
 		CanAttackGround: no
 	RenderInfantry:
 		IdleAnimations: idle1,idle2
@@ -46,8 +46,9 @@ E1:
 		HP: 50
 	Mobile:
 		Speed: 4
+	Armament:
+		Weapon: M1Carbine
 	AttackFrontal:
-		PrimaryWeapon: M1Carbine
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:
@@ -72,10 +73,11 @@ E2:
 		HP: 50
 	Mobile:
 		Speed: 5
-	AttackFrontal:
-		PrimaryWeapon: Grenade
-		PrimaryOffset: 0,0,0,-13
+	Armament:
+		Weapon: Grenade
+		LocalOffset: 0,0,555
 		FireDelay: 15
+	AttackFrontal:
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:
@@ -102,10 +104,13 @@ E3:
 		HP: 45
 	Mobile:
 		Speed: 3
+	Armament@PRIMARY:
+		Weapon: RedEye
+		LocalOffset: 0,0,555
+	Armament@SECONDARY:
+		Weapon: Dragon
+		LocalOffset: 0,0,555
 	AttackFrontal:
-		PrimaryWeapon: RedEye
-		SecondaryWeapon: Dragon
-		PrimaryOffset: 0,0,0,-13
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:
@@ -130,10 +135,11 @@ E4:
 		HP: 40
 	Mobile:
 		Speed: 3
-	AttackFrontal:
-		PrimaryWeapon: Flamer
-		PrimaryOffset: 0,-10,0,-8
+	Armament:
+		Weapon: Flamer
+		LocalOffset: 427,0,341
 		FireDelay: 8
+	AttackFrontal:
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:
@@ -164,6 +170,8 @@ E6:
 	Captures:
 	TakeCover:
 	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
 	AttackMove:
 		JustMove: true
 	-RenderInfantry:
@@ -196,14 +204,19 @@ SPY:
 		PipType: Yellow
 	TakeCover:
 	Spy:
+	Infiltrates:
+		InfiltrateTypes: Cash, SupportPower, Exploration
 	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
 	AttackMove:
 		JustMove: true
 	-RenderInfantry:
 	RenderSpy:
 		IdleAnimations: idle1,idle2
+	Armament:
+		Weapon: SilencedPPK
 	AttackFrontal:
-		PrimaryWeapon: SilencedPPK
 
 E7:
 	Inherits: ^Infantry
@@ -213,11 +226,12 @@ E7:
 		Prerequisites: techcenter
 		Owner: allies
 		Hotkey: y
+		BuildLimit: 1
 	Valued:
 		Cost: 1200
 	Tooltip:
 		Name: Tanya
-		Description: Elite commando infantry, armed with \ndual pistols and C4.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles\n  Special Ability: Destroy Building with C4
+		Description: Elite commando infantry, armed with \ndual pistols and C4.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles\n  Special Ability: Destroy Building with C4\n\nMaximum 1 can be trained
 	Selectable:
 		Voice: TanyaVoice
 		Bounds: 12,17,0,-9
@@ -231,9 +245,11 @@ E7:
 		C4Delay: 45
 	Passenger:
 		PipType: Red
+	Armament@PRIMARY:
+		Weapon: Colt45
+	Armament@SECONDARY:
+		Weapon: Colt45
 	AttackFrontal:
-		PrimaryWeapon: Colt45
-		SecondaryWeapon: Colt45
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:
@@ -247,11 +263,12 @@ E8:
 		Prerequisites: stek
 		Owner: soviet
 		Hotkey: v
+		BuildLimit: 1
 	Valued:
 		Cost: 1800
 	Tooltip:
 		Name: Volkov
-		Description: Elite commando cyborg, armed with \nmodular cannons and grenade launcher.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+		Description: Elite commando cyborg, armed with \nmodular cannons and grenade launcher.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft\n\nMaximum 1 can be trained
 	Selectable:
 		Voice: VolkovVoice
 		Bounds: 12,17,0,-9
@@ -266,9 +283,11 @@ E8:
 		Range: 4
 	Passenger:
 		PipType: Red
+	Armament@PRIMARY:
+		Weapon: VolkAT
+	Armament@SECONDARY:
+		Weapon: VolkNapalm
 	AttackFrontal:
-		PrimaryWeapon: VolkAT
-		SecondaryWeapon: VolkNapalm
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:
@@ -304,55 +323,56 @@ MEDI:
 	Passenger:
 		PipType: Yellow
 	AutoHeal:
+	Armament:
+		Weapon: Heal
 	AttackMedic:
-		PrimaryWeapon: Heal
 	TakeCover:
 	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
 	AttackMove:
 		JustMove: true
 	-RenderInfantry:
 	RenderInfantryProne:
 		IdleAnimations: idle1,idle2
 
-C1:
+MECH:
 	Inherits: ^Infantry
-	Selectable:
-		Voice: CivilianMaleVoice
-		Bounds: 12,17,0,-9
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 70
+		Owner: allies
+		Prerequisites: fix
+		Hotkey: c
 	Valued:
-		Cost: 70
+		Cost: 800
 	Tooltip:
-		Name: Civilian
+		Name: Mechanic
+		Description: Repairs nearby vehicles.\n  Strong vs Nothing\n  Weak vs Everything
+	Selectable:
+		Voice: MechanicVoice
+		Bounds: 12,17,0,-9
 	Health:
-		HP: 20
+		HP: 80
 	Mobile:
 		Speed: 4
 	RevealsShroud:
-		Range: 2
-	AttackFrontal:
-		PrimaryWeapon: Pistol
-	ProximityCaptor:
-		Types:CivilianInfantry
-
-C2:
-	Inherits: ^Infantry
-	Selectable:
-		Voice: CivilianFemaleVoice
-		Bounds: 12,17,0,-9
-	Valued:
-		Cost: 70
-	Tooltip:
-		Name: Civilian
-	Health:
-		HP: 20
-	Mobile:
-		Speed: 4
-	RevealsShroud:
-		Range: 2
-	AttackFrontal:
-		PrimaryWeapon: Pistol
-	ProximityCaptor:
-		Types:CivilianInfantry
+		Range: 3
+	Passenger:
+		PipType: Yellow
+	AutoHeal:
+	Armament:
+		Weapon: Repair
+	AttackMedic:
+	TakeCover:
+	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
+	AttackMove:
+		JustMove: true
+	-RenderInfantry:
+	RenderInfantryProne:
+		IdleAnimations: idle1,idle2
 
 EINSTEIN:
 	Inherits: ^Infantry
@@ -370,10 +390,78 @@ EINSTEIN:
 	RevealsShroud:
 		Range: 2
 	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
 	AttackMove:
 		JustMove: true
 	ProximityCaptor:
-		Types:CivilianInfantry
+		Types: CivilianInfantry
+	-RenderInfantry:
+	RenderInfantryPanic:
+	ScaredyCat:
+
+DELPHI:
+	Inherits: ^Infantry
+	Selectable:
+		Voice: CivilianMaleVoice
+		Bounds: 12,17,0,-9
+	Valued:
+		Cost: 10
+	Tooltip:
+		Name: Agent Delphi
+	Health:
+		HP: 25
+	Mobile:
+		Speed: 5
+	RevealsShroud:
+		Range: 2
+	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
+	AttackMove:
+		JustMove: true
+	ProximityCaptor:
+		Types: CivilianInfantry
+	-RenderInfantry:
+	RenderInfantryPanic:
+	ScaredyCat:
+
+CHAN:
+	Inherits: ^CivInfantry
+	Tooltip:
+		Name: Agent Chan
+
+GNRL:
+	Inherits: ^CivInfantry
+	Tooltip:
+		Name: General
+
+THF:
+	Inherits: ^Infantry
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: Thief
+		Description: Steals enemy credits.\n  Strong vs Nothing\n  Weak vs Everything\n
+	Selectable:
+		Voice: ThiefVoice
+		Bounds: 12,17,0,-9
+	Health:
+		HP: 25
+	Mobile:
+		Speed: 4
+	RevealsShroud:
+		Range: 5
+	Passenger:
+		PipType: Yellow
+	Infiltrates:
+		InfiltrateTypes: Cash
+	TakeCover:
+	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
+	AttackMove:
+		JustMove: true
 
 SHOK:
 	Inherits: ^Infantry
@@ -396,9 +484,10 @@ SHOK:
 		Speed: 3
 	RevealsShroud:
 		Range: 4
+	Armament:
+		Weapon: PortaTesla
+		LocalOffset: 427,0,341
 	AttackFrontal:
-		PrimaryWeapon: PortaTesla
-		PrimaryOffset: 0,-10,0,-8
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:
@@ -431,8 +520,9 @@ SNIPER:
 		Range: 6
 	AutoTarget:
 		InitialStance: HoldFire
+	Armament:
+		Weapon: Sniper
 	AttackFrontal:
-		PrimaryWeapon: Sniper
 	TakeCover:
 	-RenderInfantry:
 	RenderInfantryProne:

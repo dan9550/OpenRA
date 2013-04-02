@@ -39,7 +39,7 @@ namespace OpenRA.Graphics
 
 			int nv = 0;
 
-			var terrainPalette = Game.modData.Palette.GetPaletteIndex("terrain");
+			var terrainPalette = wr.Palette("terrain").Index;
 
 			for( int j = map.Bounds.Top; j < map.Bounds.Bottom; j++ )
 				for( int i = map.Bounds.Left; i < map.Bounds.Right; i++ )
@@ -50,7 +50,7 @@ namespace OpenRA.Graphics
 					nv += 4;
 
 					if (tileMapping[map.MapTiles.Value[i, j]].sheet != terrainSheet)
-						throw new InvalidOperationException("Terrain sprites span multiple sheets");
+						throw new InvalidOperationException("Terrain sprites span multiple sheets. Try increasing Game.Settings.Graphics.SheetSize.");
 				}
 
 			vertexBuffer = Game.Renderer.Device.CreateVertexBuffer( vertices.Length );
@@ -84,11 +84,9 @@ namespace OpenRA.Graphics
 
 			if( lastRow < firstRow ) lastRow = firstRow;
 
-			Game.Renderer.WorldSpriteShader.SetValue( "DiffuseTexture", terrainSheet.Texture );
-			Game.Renderer.WorldSpriteShader.Render(() =>
-				Game.Renderer.DrawBatch(vertexBuffer,
-					verticesPerRow * firstRow, verticesPerRow * (lastRow - firstRow),
-					PrimitiveType.QuadList));
+			Game.Renderer.WorldSpriteRenderer.DrawVertexBuffer(
+				vertexBuffer, verticesPerRow * firstRow, verticesPerRow * (lastRow - firstRow),
+				PrimitiveType.QuadList, terrainSheet);
 
 			foreach (var r in world.WorldActor.TraitsImplementing<IRenderOverlay>())
 				r.Render( wr );

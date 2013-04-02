@@ -29,6 +29,8 @@ namespace OpenRA
 	{
 		public static int CellSize { get { return modData.Manifest.TileSize; } }
 
+		public static MouseButtonPreference mouseButtonPreference = new MouseButtonPreference();
+
 		public static ModData modData;
 		static WorldRenderer worldRenderer;
 
@@ -56,7 +58,7 @@ namespace OpenRA
 
 		static string ChooseReplayFilename()
 		{
-			return DateTime.UtcNow.ToString("OpenRA-yyyy-MM-ddTHHmmssZ.rep");
+			return DateTime.UtcNow.ToString("OpenRA-yyyy-MM-ddTHHmmssZ");
 		}
 
 		static void JoinInner(OrderManager om)
@@ -208,7 +210,7 @@ namespace OpenRA
 
 			var map = modData.PrepareMap(mapUID);
 			viewport = new Viewport(new int2(Renderer.Resolution), map.Bounds, Renderer);
-			orderManager.world = new World(modData.Manifest, map, orderManager) { IsShellmap = isShellmap };
+			orderManager.world = new World(modData.Manifest, map, orderManager, isShellmap);
 			worldRenderer = new WorldRenderer(orderManager.world);
 
 			if (orderManager.GameStarted) return;
@@ -218,6 +220,9 @@ namespace OpenRA
 			orderManager.LastTickTime = Environment.TickCount;
 			orderManager.StartGame();
 			worldRenderer.RefreshPalette();
+
+			if (!isShellmap)
+				Sound.PlayNotification(null, "Speech", "StartGame", null);
 		}
 
 		public static bool IsHost
@@ -313,7 +318,8 @@ namespace OpenRA
 					{
 						System.Threading.Thread.Sleep(100);
 
-						if((server.GameStarted)&&(server.conns.Count<=1))
+						if((server.State == Server.ServerState.GameStarted)
+						    && (server.conns.Count<=1))
 						{
 							Console.WriteLine("No one is playing, shutting down...");
 							server.Shutdown();
@@ -451,6 +457,30 @@ namespace OpenRA
 			Game.Settings.Save();
 
 			Game.JoinServer(host, port);
+		}
+
+		public static bool DownloadMap(string mapHash)
+		{
+			try
+			{
+				var mod = Game.CurrentMods.FirstOrDefault().Value.Id;
+				var dirPath = "{1}maps{0}{2}".F(Path.DirectorySeparatorChar, Platform.SupportDir, mod);
+				if(!Directory.Exists(dirPath))
+					Directory.CreateDirectory(dirPath);
+				var mapPath = "{1}{0}{2}".F(Path.DirectorySeparatorChar, dirPath, mapHash+".oramap");
+				Console.Write("Trying to download map to {0} ... ".F(mapPath));
+				WebClient webClient = new WebClient();
+				webClient.DownloadFile(Game.Settings.Game.MapRepository + mapHash, mapPath);
+				Game.modData.AvailableMaps.Add(mapHash, new Map(mapPath));
+				Console.WriteLine("done");
+				return true;
+			}
+			catch (WebException e)
+			{
+				Log.Write("debug", "Could not download map '{0}'", mapHash);
+				Log.Write("debug", e.ToString());
+				return false;
+			}
 		}
 	}
 }

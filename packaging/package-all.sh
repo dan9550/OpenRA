@@ -21,12 +21,17 @@ make package
 # Remove the mdb files that are created during `make`
 find . -path "*.mdb" -delete
 
+markdown README.md > README.html
+markdown CONTRIBUTING.md > CONTRIBUTING.html
+markdown DOCUMENTATION.md > DOCUMENTATION.html
+
 # List of files that are packaged on all platforms
 # Note that the Tao dlls are shipped on all platforms except osx and that
 # they are now installed to the game directory instead of placed in the gac
-FILES="OpenRA.Game.exe OpenRA.Editor.exe OpenRA.Utility.exe OpenRA.Renderer.SdlCommon.dll OpenRA.Renderer.Cg.dll \
-OpenRA.Renderer.Gl.dll OpenRA.Renderer.Null.dll OpenRA.FileFormats.dll FreeSans.ttf FreeSansBold.ttf titles.ttf \
-cg glsl mods/ra mods/cnc mods/d2k COPYING HACKING INSTALL CHANGELOG"
+FILES="OpenRA.Game.exe OpenRA.Editor.exe OpenRA.Utility.exe OpenRA.FileFormats.dll \
+OpenRA.Renderer.SdlCommon.dll OpenRA.Renderer.Cg.dll OpenRA.Renderer.Gl.dll OpenRA.Renderer.Null.dll \
+FreeSans.ttf FreeSansBold.ttf titles.ttf cg glsl mods/ra mods/cnc mods/d2k \
+README.html CONTRIBUTING.html DOCUMENTATION.html COPYING HACKING INSTALL CHANGELOG"
 
 echo "Copying files..."
 for i in $FILES; do
@@ -38,6 +43,9 @@ cp thirdparty/Tao/* packaging/built
 
 # SharpZipLib for zip file support
 cp thirdparty/ICSharpCode.SharpZipLib.dll packaging/built
+
+# FuzzyLogicLibrary for improved AI
+cp thirdparty/FuzzyLogicLibrary.dll packaging/built
 
 # Copy game icon for windows package
 cp OpenRA.Game/OpenRA.ico packaging/built

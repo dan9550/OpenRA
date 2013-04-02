@@ -13,11 +13,16 @@ using OpenRA.Graphics;
 
 namespace OpenRA.Traits
 {
+	[Desc("Add this to the Player actor definition.")]
 	public class PlayerColorPaletteInfo : ITraitInfo
 	{
+		[Desc("The Name of the palette to base off.")]
 		public readonly string BasePalette = null;
+		[Desc("The prefix for the resulting player palettes")]
 		public readonly string BaseName = "player";
+		[Desc("Remap these indices to player colors.")]
 		public readonly int[] RemapIndex = {};
+		public readonly bool AllowModifiers = true;
 
 		public object Create( ActorInitializer init ) { return new PlayerColorPalette( init.self.Owner, this ); }
 	}
@@ -36,9 +41,9 @@ namespace OpenRA.Traits
 		public void InitPalette( WorldRenderer wr )
 		{
 			var paletteName = "{0}{1}".F( info.BaseName, owner.InternalName );
-			var newpal = new Palette(wr.GetPalette(info.BasePalette),
+			var newpal = new Palette(wr.Palette(info.BasePalette).Palette,
 							 new PlayerColorRemap(info.RemapIndex, owner.ColorRamp));
-			wr.AddPalette(paletteName, newpal);
+			wr.AddPalette(paletteName, newpal, info.AllowModifiers);
 		}
 	}
 }

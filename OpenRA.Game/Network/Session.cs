@@ -37,12 +37,19 @@ namespace OpenRA.Network
 			return Slots.FirstOrDefault(s => !s.Value.Closed && ClientInSlot(s.Key) == null).Key;
 		}
 
+		public bool IsSinglePlayer
+		{
+			get { return Clients.Count(c => c.Bot == null) == 1; }
+		}
+
 		public enum ClientState { NotReady, Ready, Disconnected = 1000 }
 
 		public class Client
 		{
 			public int Index;
-			public ColorRamp ColorRamp;
+			public ColorRamp PreferredColorRamp; // Color that the client normally uses from settings.yaml.
+			public ColorRamp ColorRamp; // Actual color that the client is using.
+										// Usually the same as PreferredColorRamp but can be different on maps with locked colors.
 			public string Country;
 			public int SpawnPoint;
 			public string Name;
@@ -52,6 +59,7 @@ namespace OpenRA.Network
 			public string Bot; // Bot type, null for real clients
 			public bool IsAdmin;
 			public bool IsReady { get { return State == ClientState.Ready; } }
+			public bool IsObserver { get { return Slot == null; } }
 		}
 
 		public class Slot
@@ -75,10 +83,12 @@ namespace OpenRA.Network
 			public string[] Mods = { "ra" };	// mod names
 			public int OrderLatency = 3;
 			public int RandomSeed = 0;
-			public bool LockTeams = true;	// don't allow team changes after game start.
+			public bool FragileAlliances = false;	// Allow diplomatic stance changes after game start.
 			public bool AllowCheats = false;
 			public bool Dedicated;
-			public string DedicatedMOTD;
+			public string Difficulty;
+			public bool Crates = true;
+			public bool AllowVersionMismatch;
 		}
 
 		public Session(string[] mods)

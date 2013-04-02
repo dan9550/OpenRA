@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using OpenRA.Effects;
+using OpenRA.FileFormats;
 using OpenRA.GameRules;
 using OpenRA.Graphics;
 using OpenRA.Traits;
@@ -23,13 +24,16 @@ namespace OpenRA.Mods.RA.Effects
 	{
 		public readonly int Speed = 1;
 		public readonly int Arm = 0;
+		[Desc("Check for whether an actor with Wall: trait blocks fire")]
 		public readonly bool High = false;
 		public readonly bool Shadow = true;
 		public readonly bool Proximity = false;
 		public readonly string Trail = null;
 		public readonly float Inaccuracy = 0;
 		public readonly string Image = null;
+		[Desc("Rate of Turning")]
 		public readonly int ROT = 5;
+		[Desc("Explode when following the target longer than this.")]
 		public readonly int RangeLimit = 0;
 		public readonly bool TurboBoost = false;
 		public readonly int TrailInterval = 2;
@@ -141,7 +145,7 @@ namespace OpenRA.Mods.RA.Effects
 			}
 
 			if (Trail != null)
-				Trail.Tick(PxPosition - new PVecInt(0, Altitude));
+				Trail.Tick(PxPosition.ToWPos(Altitude));
 		}
 
 		void Explode(World world)
@@ -152,14 +156,14 @@ namespace OpenRA.Mods.RA.Effects
 				Combat.DoImpacts(Args);
 		}
 
-		public IEnumerable<Renderable> Render()
+		public IEnumerable<Renderable> Render(WorldRenderer wr)
 		{
 			if (Args.firedBy.World.RenderedShroud.IsVisible(PxPosition.ToCPos()))
 				yield return new Renderable(anim.Image, PxPosition.ToFloat2() - 0.5f * anim.Image.size - new float2(0, Altitude),
-					Args.weapon.Underwater ? "shadow" : "effect", PxPosition.Y);
+					wr.Palette(Args.weapon.Underwater ? "shadow" : "effect"), PxPosition.Y);
 
 			if (Trail != null)
-				Trail.Render(Args.firedBy);
+				Trail.Render(wr, Args.firedBy);
 		}
 	}
 }

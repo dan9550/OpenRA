@@ -24,13 +24,13 @@ namespace OpenRA.Mods.RA.Server
 		{
 			if (!server.lobbyInfo.Slots.ContainsKey(arg))
 			{
-				Log.Write("server", "Invalid slot: {0}", arg );
+				Log.Write("server", "Invalid slot: {0}", arg);
 				return false;
 			}
-			
+
 			if (requiresHost && !client.IsAdmin)
 			{
-				server.SendChatTo( conn, "Only the host can do that" );
+				server.SendChatTo(conn, "Only the host can do that");
 				return false;
 			}
 
@@ -39,7 +39,7 @@ namespace OpenRA.Mods.RA.Server
 
 		public static bool ValidateCommand(S server, Connection conn, Session.Client client, string cmd)
 		{
-			if (server.GameStarted)
+			if (server.State == ServerState.GameStarted)
 			{
 				server.SendChatTo(conn, "Cannot change state when game started. ({0})".F(cmd));
 				return false;
@@ -230,7 +230,7 @@ namespace OpenRA.Mods.RA.Server
 							var hue = (byte)server.Random.Next(255);
 							var sat = (byte)server.Random.Next(255);
 							var lum = (byte)server.Random.Next(51,255);
-							bot.ColorRamp = new ColorRamp(hue, sat, lum, 10);
+							bot.ColorRamp = bot.PreferredColorRamp = new ColorRamp(hue, sat, lum, 10);
 
 							server.lobbyInfo.Clients.Add(bot);
 						}
@@ -261,6 +261,7 @@ namespace OpenRA.Mods.RA.Server
 						server.lobbyInfo.GlobalSettings.Map = s;
 						var oldSlots = server.lobbyInfo.Slots.Keys.ToArray();
 						LoadMap(server);
+						SetDefaultDifficulty(server);
 
 						// Reassign players into new slots based on their old slots:
 						//  - Observers remain as observers
@@ -291,7 +292,7 @@ namespace OpenRA.Mods.RA.Server
 						server.SyncLobbyInfo();
 						return true;
 					}},
-				{ "lockteams",
+				{ "fragilealliance",
 					s =>
 					{
 						if (!client.IsAdmin)
@@ -300,7 +301,7 @@ namespace OpenRA.Mods.RA.Server
 							return true;
 						}
 
-						bool.TryParse(s, out server.lobbyInfo.GlobalSettings.LockTeams);
+						bool.TryParse(s, out server.lobbyInfo.GlobalSettings.FragileAlliances);
 						server.SyncLobbyInfo();
 						return true;
 					}},
@@ -314,6 +315,87 @@ namespace OpenRA.Mods.RA.Server
 						}
 
 						bool.TryParse(s, out server.lobbyInfo.GlobalSettings.AllowCheats);
+						server.SyncLobbyInfo();
+						return true;
+					}},
+				{ "assignteams",
+					s =>
+					{
+						if (!client.IsAdmin)
+						{
+							server.SendChatTo(conn, "Only the host can set that option");
+							return true;
+						}
+
+						int teams;
+						if (!int.TryParse(s, out teams))
+						{
+							server.SendChatTo(conn, "Number of teams could not be parsed: {0}".F(s));
+							return true;
+						}
+						teams = teams.Clamp(2, 8);
+
+						var players = server.lobbyInfo.Slots
+							.Select(slot => server.lobbyInfo.Clients.SingleOrDefault(c => c.Slot == slot.Key))
+							.Where(c => c != null && !server.lobbyInfo.Slots[c.Slot].LockTeam).ToArray();
+						if (players.Length < 2)
+						{
+							server.SendChatTo(conn, "Not enough players to assign teams");
+							return true;
+						}
+						if (teams > players.Length)
+						{
+							server.SendChatTo(conn, "Too many teams for the number of players");
+							return true;
+						}
+
+						var teamSizes = new int[players.Length];
+						for (var i = 0; i < players.Length; i++)
+							teamSizes[i % teams]++;
+
+						var playerIndex = 0;
+						for (var team = 1; team <= teams; team++)
+						{
+							for (var teamPlayerIndex = 0; teamPlayerIndex < teamSizes[team - 1]; playerIndex++, teamPlayerIndex++)
+							{
+								var cl = players[playerIndex];
+								if (cl.Bot == null)
+									cl.State = Session.ClientState.NotReady;
+								cl.Team = team;
+							}
+						}
+						server.SyncLobbyInfo();
+						return true;
+					}},
+				{ "crates",
+					s =>
+					{
+						if (!client.IsAdmin)
+						{
+							server.SendChatTo(conn, "Only the host can set that option");
+							return true;
+						}
+
+						bool.TryParse(s, out server.lobbyInfo.GlobalSettings.Crates);
+						server.SyncLobbyInfo();
+						return true;
+					}},
+				{ "difficulty",
+					s =>
+					{
+						if (!client.IsAdmin)
+						{
+							server.SendChatTo(conn, "Only the host can set that option");
+							return true;
+						}
+						if ((server.Map.Difficulties == null && s != null) || (server.Map.Difficulties != null && !server.Map.Difficulties.Contains(s)))
+						{
+							server.SendChatTo(conn, "Unsupported difficulty selected: {0}".F(s));
+							server.SendChatTo(conn, "Supported difficulties: {0}".F(server.Map.Difficulties.JoinWith(",")));
+							return true;
+						}
+
+						server.lobbyInfo.GlobalSettings.Difficulty = s;
 						server.SyncLobbyInfo();
 						return true;
 					}},
@@ -439,7 +521,7 @@ namespace OpenRA.Mods.RA.Server
 							return true;
 
 						var ci = parts[1].Split(',').Select(cc => int.Parse(cc)).ToArray();
-						targetClient.ColorRamp = new ColorRamp((byte)ci[0], (byte)ci[1], (byte)ci[2], (byte)ci[3]);
+						targetClient.ColorRamp = targetClient.PreferredColorRamp = new ColorRamp((byte)ci[0], (byte)ci[1], (byte)ci[2], (byte)ci[3]);
 						server.SyncLobbyInfo();
 						return true;
 					}}
@@ -448,17 +530,24 @@ namespace OpenRA.Mods.RA.Server
 			var cmdName = cmd.Split(' ').First();
 			var cmdValue = cmd.Split(' ').Skip(1).JoinWith(" ");
 
-			Func<string,bool> a;
+			Func<string, bool> a;
 			if (!dict.TryGetValue(cmdName, out a))
 				return false;
 
 			return a(cmdValue);
 		}
 
-		public void ServerStarted(S server) { LoadMap(server); }
+		public void ServerStarted(S server)
+		{
+			LoadMap(server);
+			SetDefaultDifficulty(server);
+		}
+
 		static Session.Slot MakeSlotFromPlayerReference(PlayerReference pr)
 		{
 			if (!pr.Playable) return null;
+			if (Game.Settings.Server.LockBots || Game.Settings.Server.Dedicated)
+				pr.AllowBots = false;
 			return new Session.Slot
 			{
 				PlayerReference = pr.Name,
@@ -479,6 +568,16 @@ namespace OpenRA.Mods.RA.Server
 				.Select(p => MakeSlotFromPlayerReference(p.Value))
 				.Where(s => s != null)
 				.ToDictionary(s => s.PlayerReference, s => s);
+		}
+
+		static void SetDefaultDifficulty(S server)
+		{
+			if (server.Map.Difficulties != null && server.Map.Difficulties.Any())
+			{
+				if (!server.Map.Difficulties.Contains(server.lobbyInfo.GlobalSettings.Difficulty))
+					server.lobbyInfo.GlobalSettings.Difficulty = server.Map.Difficulties.First();
+			}
+			else server.lobbyInfo.GlobalSettings.Difficulty = null;
 		}
 	}
 }

@@ -46,7 +46,13 @@ Container@CHEATS_PANEL:
 					Y:45
 					Width:200
 					Height:20
-					Text:Instant Charge Time				
+					Text:Instant Charge Time
+				Checkbox@SHOW_MUZZLES:
+					X:200
+					Y:75
+					Height:20
+					Width:200
+					Text:Show Muzzle Positions
 				Checkbox@DISABLE_SHROUD:
 					X:400
 					Y:15
@@ -59,6 +65,12 @@ Container@CHEATS_PANEL:
 					Width:200
 					Height:20
 					Text:Show Unit Paths
+				Checkbox@SHOW_ASTAR:
+					X:400
+					Y:75
+					Height:20
+					Width:200
+					Text:Show A* Cost
 		Button@CLOSE:
 			Key:escape
 			X:0
@@ -67,14 +79,20 @@ Container@CHEATS_PANEL:
 			Height:35
 			Text:Close
 		Button@GIVE_CASH:
-			X:300
+			X:150
 			Y:109
 			Width:140
 			Height:35
 			Text:Give Cash
 		Button@GIVE_EXPLORATION:
-			X:450
+			X:300
 			Y:109
 			Width:140
 			Height:35
 			Text:Give Exploration
+		Button@RESET_EXPLORATION:
+			X:450
+			Y:109
+			Width:140
+			Height:35
+			Text:Reset Exploration

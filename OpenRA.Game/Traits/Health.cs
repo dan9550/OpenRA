@@ -75,7 +75,7 @@ namespace OpenRA.Traits
 
 			var oldState = this.DamageState;
 			/* apply the damage modifiers, if we have any. */
-			var modifier = (float)self.TraitsImplementing<IDamageModifier>()
+			var modifier = self.TraitsImplementing<IDamageModifier>()
 				.Concat(self.Owner.PlayerActor.TraitsImplementing<IDamageModifier>())
 				.Select(t => t.GetDamageModifier(attacker, warhead)).Product();
 
@@ -160,6 +160,7 @@ namespace OpenRA.Traits
 
 		public static void InflictDamage(this Actor self, Actor attacker, int damage, WarheadInfo warhead)
 		{
+			if (self.Destroyed) return;
 			var health = self.TraitOrDefault<Health>();
 			if (health == null) return;
 			health.InflictDamage(self, attacker, damage, warhead, false);

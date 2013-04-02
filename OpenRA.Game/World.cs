@@ -40,30 +40,18 @@ namespace OpenRA
 		public void AddPlayer(Player p) { Players.Add(p); }
 		public Player LocalPlayer { get; private set; }
 		public readonly Shroud LocalShroud;
-
+		public bool Observer { get { return LocalPlayer == null; } }
 		public Player RenderedPlayer;
-		public Shroud RenderedShroud {
-			get {
-				if(RenderedPlayer == null)
-				{
-					return LocalShroud;
-				}else{
-					return RenderedPlayer.Shroud;
-				}
-			}
-		}
+		public Shroud RenderedShroud { get { return RenderedPlayer != null ? RenderedPlayer.Shroud : LocalShroud; } }
 		
 
 		public void SetLocalPlayer(string pr)
 		{
-			if (!(orderManager.Connection is ReplayConnection))
-			{
-	 			LocalPlayer = Players.FirstOrDefault(p => p.InternalName == pr);
-				RenderedPlayer = LocalPlayer;
-			}else{
-				
-			}
-				
+			if (orderManager.Connection is ReplayConnection)
+				return;
+
+	 		LocalPlayer = Players.FirstOrDefault(p => p.InternalName == pr);
+			RenderedPlayer = LocalPlayer;
 		}
 
 		public readonly Actor WorldActor;
@@ -102,8 +90,9 @@ namespace OpenRA
 			}
 		}
 
-		internal World(Manifest manifest, Map map, OrderManager orderManager)
+		internal World(Manifest manifest, Map map, OrderManager orderManager, bool isShellmap)
 		{
+			IsShellmap = isShellmap;
 			this.orderManager = orderManager;
 			orderGenerator_ = new UnitOrderGenerator();
 			Map = map;
@@ -180,7 +169,7 @@ namespace OpenRA
 
 		public void Tick()
 		{
-			// Todo: Expose this as an order so it can be synced
+			// TODO: Expose this as an order so it can be synced
 			if (ShouldTick())
 			{
 				using( new PerfSample("tick_idle") )

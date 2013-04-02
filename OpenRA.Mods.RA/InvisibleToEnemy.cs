@@ -10,6 +10,7 @@
 
 using System.Collections.Generic;
 using System.Drawing;
+using OpenRA.Graphics;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA
@@ -26,13 +27,13 @@ namespace OpenRA.Mods.RA
 
 		public Color RadarColorOverride(Actor self)
 		{
-			// todo: why is making this half-opaque conflated with hiding the actor from non-allies?
+			// TODO: why is making this half-opaque conflated with hiding the actor from non-allies?
 			return Color.FromArgb(128, self.Owner.ColorRamp.GetColor(0));
 		}
 
 		static readonly Renderable[] Nothing = { };
 
-		public IEnumerable<Renderable> ModifyRender(Actor self, IEnumerable<Renderable> r)
+		public IEnumerable<Renderable> ModifyRender(Actor self, WorldRenderer wr, IEnumerable<Renderable> r)
 		{
 			return IsVisible(self.Owner.Shroud, self) ? r : Nothing;
 		}

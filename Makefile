@@ -1,18 +1,24 @@
 CSC         = gmcs
-CSFLAGS     = -nologo -warn:4 -debug:+ -debug:full -optimize- -codepage:utf8 -unsafe
+CSFLAGS     = -nologo -warn:4 -debug:full -optimize- -codepage:utf8 -unsafe -warnaserror
 DEFINE      = DEBUG;TRACE
-COMMON_LIBS	= System.dll System.Core.dll System.Drawing.dll System.Xml.dll thirdparty/ICSharpCode.SharpZipLib.dll
-PHONY		= core tools package all mods clean distclean
+COMMON_LIBS = System.dll System.Core.dll System.Drawing.dll System.Xml.dll thirdparty/ICSharpCode.SharpZipLib.dll thirdparty/FuzzyLogicLibrary.dll
+PHONY       = core tools package all mods clean distclean dependencies
 
 .SUFFIXES:
 core: game renderers mods utility tsbuild
 tools: editor ralint tsbuild
-package: core editor
+package: dependencies core editor docs
 mods: mod_ra mod_cnc mod_d2k
-all: core tools
-clean: 
+all: dependencies core tools
+clean:
 	@-rm -f *.exe *.dll *.mdb mods/**/*.dll mods/**/*.mdb *.resources
 distclean: clean
+dependencies:
+	@ cp -r thirdparty/*.dll .
+	@ cp -r thirdparty/Tao/* .
+default: dependencies core
+
+.DEFAULT_GOAL := default
 
 #
 # Core binaries
@@ -204,6 +210,10 @@ INSTALL = install
 INSTALL_PROGRAM = $(INSTALL)
 CORE = fileformats rcg rgl rsdl rnull game editor utility tsbuild
 
+# Documentation (d2k depends on all mod libraries)
+docs:
+	@mono --debug OpenRA.Utility.exe --docs d2k > DOCUMENTATION.md
+
 install: all
 	@-echo "Installing OpenRA to $(INSTALL_DIR)"
 	@$(INSTALL_PROGRAM) -d $(INSTALL_DIR)
@@ -245,18 +255,28 @@ install: all
 	@cp *.ttf $(INSTALL_DIR)
 	@cp thirdparty/Tao/* $(INSTALL_DIR)
 	@$(INSTALL_PROGRAM) thirdparty/ICSharpCode.SharpZipLib.dll $(INSTALL_DIR)
+	@$(INSTALL_PROGRAM) thirdparty/FuzzyLogicLibrary.dll $(INSTALL_DIR)
 
-	@echo "#!/bin/sh" > openra
-	@echo "cd "$(datadir)"/openra" >> openra
-	@echo "exec mono "$(datadir)"/openra/OpenRA.Game.exe \"$$""@\"" >> openra
+	@echo "#!/bin/sh" 				>  openra
+	@echo 'BINDIR=$$(dirname $$(readlink -f $$0))'	>> openra
+	@echo 'ROOTDIR="$${BINDIR%'"$(bindir)"'}"' 	>> openra
+	@echo 'DATADIR="$${ROOTDIR}/'"$(datadir)"'"'	>> openra
+	@echo 'cd "$${DATADIR}/openra"' 		>> openra
+	@echo 'exec mono OpenRA.Game.exe "$$@"' 	>> openra
 
-	@echo "#!/bin/sh" > openra-editor
-	@echo "cd "$(datadir)"/openra" >> openra-editor
-	@echo "exec mono "$(datadir)"/openra/OpenRA.Editor.exe \"$$""@\"" >> openra-editor
+	@echo "#!/bin/sh" 				>  openra-editor
+	@echo 'BINDIR=$$(dirname $$(readlink -f $$0))'	>> openra-editor
+	@echo 'ROOTDIR="$${BINDIR%'"$(bindir)"'}"' 	>> openra-editor
+	@echo 'DATADIR="$${ROOTDIR}/'"$(datadir)"'"'	>> openra-editor
+	@echo 'cd "$${DATADIR}/openra"'			>> openra-editor
+	@echo 'exec mono OpenRA.Editor.exe "$$@"'	>> openra-editor
 
 	@$(INSTALL_PROGRAM) -d $(BIN_INSTALL_DIR)
 	@$(INSTALL_PROGRAM) -m +rx openra $(BIN_INSTALL_DIR)
 	@$(INSTALL_PROGRAM) -m +rx openra-editor $(BIN_INSTALL_DIR)
+
+	@-rm openra
+	@-rm openra-editor
 
 uninstall:
 	@-rm -r $(INSTALL_DIR)

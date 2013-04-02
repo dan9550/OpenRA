@@ -9,13 +9,15 @@
 #endregion
 
 using System.Linq;
+using OpenRA.FileFormats;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA
 {
 	public class ConquestVictoryConditionsInfo : ITraitInfo
 	{
-		public int NotificationDelay = 1500; // Milliseconds
+		[Desc("Milliseconds")]
+		public int NotificationDelay = 1500;
 
 		public object Create(ActorInitializer init) { return new ConquestVictoryConditions(this); }
 	}
@@ -60,9 +62,9 @@ namespace OpenRA.Mods.RA
 			foreach (var a in self.World.Actors.Where(a => a.Owner == self.Owner))
 				a.Kill(a);
 
+			self.Owner.Shroud.Disabled = true;
 			if (self.Owner == self.World.LocalPlayer)
 			{
-				self.World.RenderedShroud.Disabled = true;
 				Game.RunAfterDelay(Info.NotificationDelay, () =>
 				{
 					if (Game.IsCurrentWorld(self.World))
@@ -77,21 +79,20 @@ namespace OpenRA.Mods.RA
 			self.Owner.WinState = WinState.Won;
 
 			Game.Debug("{0} is victorious.".F(self.Owner.PlayerName));
+			self.Owner.Shroud.Disabled = true;
 			if (self.Owner == self.World.LocalPlayer)
 			{
-				self.World.RenderedShroud.Disabled = true;
 				Game.RunAfterDelay(Info.NotificationDelay, () => Sound.PlayNotification(self.Owner, "Speech", "Win", self.Owner.Country.Race));
 			}
 		}
 	}
 
-	/* tag trait for things that must be destroyed for a short game to end */
-
+	[Desc("Tag trait for things that must be destroyed for a short game to end.")]
 	public class MustBeDestroyedInfo : TraitInfo<MustBeDestroyed> { }
 	public class MustBeDestroyed { }
 
-	// Provides game mode information for players/observers
-	// Goes on WorldActor - observers don't have a player it can live on
+	[Desc("Provides game mode information for players/observers.",
+	      "Goes on WorldActor - observers don't have a player it can live on.")]
 	public class ConquestObjectivesPanelInfo : ITraitInfo
 	{
 		public string ObjectivesPanel = null;

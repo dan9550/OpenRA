@@ -1,7 +1,5 @@
 CONYARDA:
 	Inherits: ^CONYARD
-	Buildable:
-		Owner: atreides
 	Transforms:
 		IntoActor: mcva
 		Offset:1,1
@@ -143,11 +141,12 @@ COMBATA:
 		Prerequisites: heavya
 		Owner: atreides
 		BuiltAt: heavya
+	Armament:
+		Weapon: 90mma
+		Recoil: 171
+		RecoilRecovery: 34
+		LocalOffset: 85,0,128
 	AttackTurreted:
-		PrimaryWeapon: 90mma
-		PrimaryRecoil: 4
-		PrimaryRecoilRecovery: 0.8
-		PrimaryLocalOffset: 0,-2,0,-3,0
 	RenderUnitTurreted:
 		Image: COMBATA
 	LeavesHusk:
@@ -196,11 +195,14 @@ SONICTANK:
 		Range: 6
 	RenderUnit:
 		Image: SONICTANK
+	Armament:
+		Weapon: TTankZap
+		LocalOffset: 640,0,427
 	AttackFrontal:
-		PrimaryWeapon: TTankZap
-		PrimaryLocalOffset: 0,-15,0,-10,0
 	AutoTarget:
 		InitialStance: Defend
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
@@ -239,8 +241,9 @@ FREMEN:
 		Range: 7
 	AutoTarget:
 		ScanRadius: 7
+	Armament:
+		Weapon: Sniper
 	AttackFrontal:
-		PrimaryWeapon: Sniper
 	RenderInfantryProne:
 	-RenderInfantry:
 	TakeCover:

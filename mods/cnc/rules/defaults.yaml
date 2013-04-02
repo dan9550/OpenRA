@@ -3,12 +3,12 @@
 	Mobile:
 		Crushes: crate
 		TerrainSpeeds:
-			Clear: 60
-			Rough: 40
+			Clear: 80
+			Rough: 50
 			Road: 100
-			Tiberium: 40
-			BlueTiberium: 40
-			Beach: 40
+			Tiberium: 50
+			BlueTiberium: 50
+			Beach: 50
 		ROT: 5
 	SelectionDecorations:
 	Selectable: 
@@ -31,6 +31,7 @@
 	AttackMove:
 	AcceptsCloakCrate:
 	WithSmoke:
+	DebugMuzzlePositions:
 
 ^Tank:
 	AppearsOnRadar:
@@ -65,6 +66,10 @@
 	AttackMove:
 	AcceptsCloakCrate:
 	WithSmoke:
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	DebugMuzzlePositions:
 
 ^Helicopter:
 	AppearsOnRadar:
@@ -87,6 +92,10 @@
 	DrawLineToTarget:
 	ActorLostNotification:
 		Notification: unitlost.aud
+	Explodes:
+		Weapon: HeliExplode
+		EmptyWeapon: HeliExplode
+	DebugMuzzlePositions:
 
 ^Infantry:
 	AppearsOnRadar:
@@ -98,6 +107,8 @@
 		Range: 5
 	AutoTarget:
 		ScanRadius: 4
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Mobile:
 		Crushes: crate
 		SharesCell: true
@@ -118,7 +129,6 @@
 	Buildable:
 		Queue: Infantry
 	TakeCover:
-		BarrelOffset: 0,-2,0,4
 	RenderInfantryProne:
 	AttackMove:
 	Passenger:
@@ -136,11 +146,14 @@
 	RepairableNear:
 		Buildings: hosp
 		CloseEnough: 1
+	DebugMuzzlePositions:
 
 ^CivInfantry:
 	Inherits: ^Infantry
 	-Buildable:
 	-AutoTarget:
+	-DebugRetiliateAgainstAggressor:
+	-DebugNextAutoTargetScanTime:
 	-TakeCover:
 	-RenderInfantryProne:
 	AppearsOnRadar:
@@ -158,8 +171,9 @@
 		HP: 25
 	RevealsShroud:
 		Range: 2
+	Armament:
+		Weapon: Pistol
 	AttackFrontal:
-		PrimaryWeapon: Pistol
 	ActorLostNotification:
 		Notification: civdead1.aud
 		NotifyAll: true
@@ -183,6 +197,7 @@
 	DrawLineToTarget:
 	ActorLostNotification:
 		Notification: unitlost.aud
+	DebugMuzzlePositions:
 
 ^Ship:
 	AppearsOnRadar:
@@ -202,6 +217,7 @@
 	ActorLostNotification:
 		Notification: unitlost.aud
 	AttackMove:
+	DebugMuzzlePositions:
 
 ^Building:
 	AppearsOnRadar:
@@ -216,6 +232,8 @@
 		RepairPercent: 40
 		RepairStep: 14
 	Building:
+		Adjacent: 5
+		RequiresBaseProvider: true
 		Dimensions: 1,1
 		Footprint: x
 		BuildSounds: constru2.aud, hvydoor1.aud
@@ -223,7 +241,7 @@
 		TerrainTypes: Clear,Road
 	SoundOnDamageTransition:
 		DamagedSound: xplos.aud
-		DestroyedSound: xplobig4.aud
+		DestroyedSound: crumble.aud
 	Buildable:
 		Queue: Building
 	GivesBuildableArea:
@@ -249,6 +267,8 @@
 	Sellable:
 	Capturable:
 	CapturableBar:
+	C4Demolishable:
+	DebugMuzzlePositions:
 
 ^CivBuilding:
 	Inherits: ^Building
@@ -336,6 +356,7 @@
 		RelativeToTopLeft: yes
 	AutoTargetIgnore:
 	Sellable:
+	C4Demolishable:
 
 ^Tree:
 	Tooltip:
@@ -350,7 +371,13 @@
 		Terrain: Tree
 	EditorAppearance:
 		RelativeToTopLeft: yes
-		
+	Health:
+		HP: 500
+	DeadBuildingState:
+	Armor:
+		Type: Wood
+	AutoTargetIgnore:
+
 ^Rock:
 	Tooltip:
 		Name: Rock
@@ -374,6 +401,7 @@
 	HiddenUnderFog:
 	AppearsOnRadar:
 	Burns:
+		Interval: 2
 	TargetableUnit:
 	TransformOnCapture:
 		ForceHealthPercentage: 25

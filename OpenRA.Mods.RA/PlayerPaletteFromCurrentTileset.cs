@@ -15,8 +15,12 @@ namespace OpenRA.Mods.RA
 {
 	class PlayerPaletteFromCurrentTilesetInfo : ITraitInfo
 	{
+		[Desc("internal palette name")]
 		public readonly string Name = null;
+		[Desc("Map listed indices to shadow.")]
 		public readonly int[] ShadowIndex = { };
+		[Desc("Apply palette rotatotors or not.")]
+		public readonly bool AllowModifiers = true;
 
 		public object Create(ActorInitializer init) { return new PlayerPaletteFromCurrentTileset(init.world, this); }
 	}
@@ -35,7 +39,7 @@ namespace OpenRA.Mods.RA
 		public void InitPalette (OpenRA.Graphics.WorldRenderer wr)
 		{
 			string Filename = world.TileSet.PlayerPalette == null ? world.TileSet.Palette : world.TileSet.PlayerPalette;
-			wr.AddPalette(info.Name, new Palette(FileSystem.Open(Filename), info.ShadowIndex));
+			wr.AddPalette(info.Name, new Palette(FileSystem.Open(Filename), info.ShadowIndex), info.AllowModifiers);
 		}
 	}
 }

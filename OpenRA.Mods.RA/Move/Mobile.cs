@@ -18,17 +18,22 @@ using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA.Move
 {
+	[Desc("Unit is able to move.")]
 	public class MobileInfo : ITraitInfo, IFacingInfo, UsesInit<FacingInit>, UsesInit<LocationInit>, UsesInit<SubCellInit>
 	{
 		[FieldLoader.LoadUsing("LoadSpeeds")]
+		[Desc("Set Water: 0 for ground units and lower the value on rough terrain.")]
 		public readonly Dictionary<string, TerrainInfo> TerrainSpeeds;
+		[Desc("e.g. crate, wall, infantry")]
 		public readonly string[] Crushes;
 		public readonly int WaitAverage = 60;
 		public readonly int WaitSpread = 20;
 		public readonly int InitialFacing = 128;
+		[Desc("Rate of Turning")]
 		public readonly int ROT = 255;
 		public readonly int Speed = 1;
 		public readonly bool OnRails = false;
+		[Desc("Allow multiple (infantry) units in one cell.")]
 		public readonly bool SharesCell = false;
 		public readonly int Altitude;
 
@@ -229,7 +234,22 @@ namespace OpenRA.Mods.RA.Move
 
 		public CPos NearestMoveableCell(CPos target, int minRange, int maxRange)
 		{
-			return NearestCell(target, CanEnterCell, minRange, maxRange);
+			if (CanEnterCell(target))
+				return target;
+
+			var searched = new List<CPos>();
+			// Limit search to a radius of 10 tiles
+			for (int r = minRange; r < maxRange; r++)
+				foreach (var tile in self.World.FindTilesInCircle(target, r).Except(searched))
+				{
+					if (CanEnterCell(tile))
+						return tile;
+
+					searched.Add(tile);
+				}
+
+			// Couldn't find a cell
+			return target;
 		}
 
 		public CPos NearestCell(CPos target, Func<CPos, bool> check, int minRange, int maxRange)
@@ -237,9 +257,15 @@ namespace OpenRA.Mods.RA.Move
 			if (check(target))
 				return target;
 
-			foreach (var tile in self.World.FindTilesInCircle(target, maxRange))
-				if (check(tile))
-					return tile;
+			var searched = new List<CPos>();
+			for (int r = minRange; r < maxRange; r++)
+				foreach (var tile in self.World.FindTilesInCircle(target, r).Except(searched))
+				{
+					if (check(tile))
+						return tile;
+
+					searched.Add(tile);
+				}
 
 			// Couldn't find a cell
 			return target;

@@ -15,9 +15,10 @@ using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA
 {
+	[Desc("Palette effect used for sprinkle \"animations\" on terrain tiles.")]
 	class WaterPaletteRotationInfo : ITraitInfo
 	{
-		public readonly string[] ExcludePalettes = { "cursor", "chrome", "colorpicker", "player" };
+		public readonly string[] ExcludePalettes = {};
 
 		public object Create(ActorInitializer init) { return new WaterPaletteRotation(init.world, this); }
 	}

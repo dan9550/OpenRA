@@ -17,7 +17,13 @@ namespace OpenRA.Widgets
 {
 	public class ButtonWidget : Widget
 	{
-		public string Key = null;
+		public Func<ButtonWidget, string> GetKey = _ => null;
+		public string Key
+		{
+			get { return GetKey(this); }
+			set { GetKey = _ => value; }
+		}
+
 		public string Text = "";
 		public bool Depressed = false;
 		public int VisualHeight = ChromeMetrics.Get<int>("ButtonDepth");
@@ -32,6 +38,7 @@ namespace OpenRA.Widgets
 
 		// Equivalent to OnMouseUp, but without an input arg
 		public Action OnClick = () => {};
+		public Action OnDoubleClick = () => {}; 
 		public Action<KeyInput> OnKeyPress = _ => {};
 
 		public ButtonWidget()
@@ -93,8 +100,16 @@ namespace OpenRA.Widgets
 				return false;
 
 			var disabled = IsDisabled();
+			if (Focused && mi.Event == MouseInputEvent.Up && mi.MultiTapCount == 2)
+			{
+				if (!disabled)
+				{
+					OnDoubleClick();
+					return LoseFocus(mi);
+				}
+			} 
 			// Only fire the onMouseUp event if we successfully lost focus, and were pressed
-			if (Focused && mi.Event == MouseInputEvent.Up)
+			else if (Focused && mi.Event == MouseInputEvent.Up)
 			{
 				if (Depressed && !disabled)
 					OnMouseUp(mi);

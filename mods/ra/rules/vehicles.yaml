@@ -19,10 +19,13 @@ V2RL:
 		Speed: 7
 	RevealsShroud:
 		Range: 5
+	Armament:
+		Weapon: SCUD
 	AttackFrontal:
-		PrimaryWeapon: SCUD
 	RenderUnitReload:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: SCUD
 		EmptyWeapon:
@@ -49,12 +52,15 @@ V2RL:
 		Range: 4
 	Turreted:
 		ROT: 5
+	Armament:
+		Weapon: 25mm
+		Recoil: 85
+		RecoilRecovery: 25
 	AttackTurreted:
-		PrimaryWeapon: 25mm
-		PrimaryRecoil: 2
-		PrimaryRecoilRecovery: 0.5
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
@@ -85,12 +91,15 @@ V2RL:
 		Range: 5
 	Turreted:
 		ROT: 5
+	Armament:
+		Weapon: 90mm
+		Recoil: 128
+		RecoilRecovery: 38
 	AttackTurreted:
-		PrimaryWeapon: 90mm
-		PrimaryRecoil: 3
-		PrimaryRecoilRecovery: 0.9
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
@@ -123,13 +132,16 @@ V2RL:
 		Range: 5
 	Turreted:
 		ROT: 5
+	Armament:
+		Weapon: 105mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 0,85,0, 0,-85,0
 	AttackTurreted:
-		PrimaryWeapon: 105mm
-		PrimaryRecoil: 3
-		PrimaryRecoilRecovery: 0.9
-		PrimaryLocalOffset: 2,0,0,0,0, -2,0,0,0,0
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
@@ -162,16 +174,21 @@ V2RL:
 		Range: 6
 	Turreted:
 		ROT: 1
+	Armament@PRIMARY:
+		Weapon: 120mm
+		LocalOffset: 800,180,340, 800,-180,340
+		Recoil: 171
+		RecoilRecovery: 30
+	Armament@SECONDARY:
+		Weapon: MammothTusk
+		LocalOffset: -85,384,340, -85,-384,340
+		LocalYaw: -100,100
+		Recoil: 43
 	AttackTurreted:
-		PrimaryWeapon: 120mm
-		SecondaryWeapon: MammothTusk
-		PrimaryLocalOffset: -4,-5,0,0,0, 4,-5,0,0,0
-		SecondaryLocalOffset: -7,2,0,0,25, 7,2,0,0,-25
-		PrimaryRecoil: 4
-		PrimaryRecoilRecovery: 0.7
-		SecondaryRecoil: 1
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
@@ -207,13 +224,16 @@ ARTY:
 		Speed: 6
 	RevealsShroud:
 		Range: 5
+	Armament:
+		Weapon: 155mm
 	AttackFrontal:
-		PrimaryWeapon: 155mm
 	RenderUnit:
 	Explodes:
 		Weapon: UnitExplode
-		Chance: 75  
+		Chance: 75
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 
 HARV:
 	Inherits: ^Vehicle
@@ -319,12 +339,15 @@ JEEP:
 		Range: 8
 	Turreted:
 		ROT: 10
+		Offset: 0,0,85
+	Armament:
+		Weapon: M60mg
 	AttackTurreted:
-		PrimaryWeapon: M60mg
-		PrimaryOffset: 0,0,0,-2
 	WithMuzzleFlash:
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Cargo:
 		Types: Infantry
 		MaxWeight: 1
@@ -351,12 +374,15 @@ APC:
 		Speed: 10
 	RevealsShroud:
 		Range: 5
+	Armament:
+		Weapon: M60mg
+		LocalOffset: 0,0,171
 	AttackFrontal:
-		PrimaryWeapon: M60mg
-		PrimaryOffset: 0,0,0,-4
 	RenderUnit:
 	WithMuzzleFlash:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Cargo:
 		Types: Infantry
 		MaxWeight: 5
@@ -453,6 +479,79 @@ TRUK:
 		Payload: 500
 	AttackMove:
 		JustMove: yes
+		
+MGG:
+	Inherits: ^Vehicle
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 150
+		Prerequisites: atek
+		Owner: allies
+		Hotkey: s
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Mobile Gap Generator
+		Description: Regenerates the shroud nearby, \nobscuring the area.\n  Unarmed
+	Health:
+		HP: 200
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 6
+	RevealsShroud:
+		Range: 6
+	RenderUnit:
+	WithSpinner:
+		Offset: -299,0,171
+	AttackMove:
+		JustMove: yes
+	CreatesShroud:
+		Range: 4
+	RenderShroudCircle:
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	LeavesHusk:
+		HuskActor: MGG.Husk
+
+MGG.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Mobile Gap Generator)
+	RenderUnit:
+		Image: mgg
+	ThrowsParticle@spinner:
+		Anim: spinner-idle
+		Offset: -299,0,171
+
+MRJ:
+	Inherits: ^Vehicle
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Mobile Radar Jammer
+		Description: Unarmed
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 1000
+		Owner: None
+	Health:
+		HP: 200
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 6
+	RevealsShroud:
+		Range: 6
+	RenderUnit:
+	WithSpinner:
+		Offset: -256,0,256
+	AttackMove:
+		JustMove: yes
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
 
 1TNK.Husk:
 	Inherits: ^Husk
@@ -462,9 +561,6 @@ TRUK:
 		Image: 1tnk
 	ThrowsParticle@turret:
 		Anim: turret
-		Spread: 3,3
-		Speed: 6
-		AnimKey: turret
 
 2TNK.Husk:
 	Inherits: ^Husk
@@ -474,9 +570,6 @@ TRUK:
 		Image: 2tnk
 	ThrowsParticle@turret:
 		Anim: turret
-		Spread: 3,3
-		Speed: 6
-		AnimKey: turret
 
 3TNK.Husk:
 	Inherits: ^Husk
@@ -486,9 +579,6 @@ TRUK:
 		Image: 3tnk
 	ThrowsParticle@turret:
 		Anim: turret
-		Spread: 3,3
-		Speed: 6
-		AnimKey: turret
 
 4TNK.Husk:
 	Inherits: ^Husk
@@ -498,9 +588,6 @@ TRUK:
 		Image: 4tnk
 	ThrowsParticle@turret:
 		Anim: turret
-		Spread: 3,3
-		Speed: 6
-		AnimKey: turret
 
 HARV.FullHusk:
 	Inherits: ^Husk
@@ -545,13 +632,17 @@ TTNK:
 		Crushes: wall, atmine, crate, infantry
 	RevealsShroud:
 		Range: 7
+	Armament:
+		Weapon: TTankZap
+		LocalOffset: 0,0,213
 	AttackFrontal:
-		PrimaryWeapon: TTankZap
-		PrimaryOffset: 0,0,0,-5
-	RenderUnitSpinner:
+	RenderUnit:
+	WithSpinner:
 	Selectable:
 		Bounds: 28,28,0,0
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 
 FTRK:
 	Inherits: ^Vehicle
@@ -576,12 +667,15 @@ FTRK:
 		Range: 4
 	Turreted:
 		ROT: 5
+		Offset: -300,0,300
+	Armament:
+		Weapon: FLAK-23
+		Recoil: 85
 	AttackTurreted:
-		PrimaryWeapon: FLAK-23
-		PrimaryOffset: 0,5,0,-4
-		PrimaryRecoil: 2
 	RenderUnitTurreted:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
 	Explodes:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
@@ -645,9 +739,15 @@ CTNK:
 		Range: 6
 	RenderUnit:
 	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
+	Armament@PRIMARY:
+		Weapon: ChronoTusk
+		LocalOffset: 0,-171,0
+		LocalYaw: 100
+	Armament@SECONDARY:
+		Weapon: ChronoTusk
+		LocalOffset: 0,171,0
+		LocalYaw: -100
 	AttackFrontal:
-		PrimaryWeapon: ChronoTusk
-		SecondaryWeapon: ChronoTusk
-		PrimaryLocalOffset: -4,0,0,0,0, -4,0,0,0,0
-		SecondaryLocalOffset: 4,0,0,0,25, 4,0,0,0,-25
 	ChronoshiftDeploy:

@@ -10,16 +10,16 @@
 
 namespace OpenRA.Traits
 {
-	class RevealsShroudInfo : ITraitInfo
+	public class RevealsShroudInfo : ITraitInfo
 	{
 		public readonly int Range = 0;
 		public object Create(ActorInitializer init) { return new RevealsShroud(this); }
 	}
 
-	class RevealsShroud : ITick
+	public class RevealsShroud : ITick, ISync
 	{
 		RevealsShroudInfo Info;
-		CPos previousLocation;
+		[Sync] CPos previousLocation;
 
 		public RevealsShroud(RevealsShroudInfo info)
 		{
@@ -28,7 +28,7 @@ namespace OpenRA.Traits
 
 		public void Tick(Actor self)
 		{
-			// todo: don't tick all the time.
+			// TODO: don't tick all the time.
 			World w = self.World;
 			if(self.Owner == null) return;
 			

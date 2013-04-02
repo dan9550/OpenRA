@@ -24,7 +24,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
 			var shroudCheckbox = widget.Get<CheckboxWidget>("DISABLE_SHROUD");
 			shroudCheckbox.IsChecked = () => devTrait.DisableShroud;
-			shroudCheckbox.OnClick = () => Order(world, "DevShroud");
+			shroudCheckbox.OnClick = () => Order(world, "DevShroudDisable");
 
 			var pathCheckbox = widget.Get<CheckboxWidget>("SHOW_UNIT_PATHS");
 			pathCheckbox.IsChecked = () => devTrait.PathDebug;
@@ -41,6 +41,10 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			fastChargeCheckbox.IsChecked = () => devTrait.FastCharge;
 			fastChargeCheckbox.OnClick = () => Order(world, "DevFastCharge");
 
+			var showMuzzlesCheckbox = widget.Get<CheckboxWidget>("SHOW_MUZZLES");
+			showMuzzlesCheckbox.IsChecked = () => devTrait.ShowMuzzles;
+			showMuzzlesCheckbox.OnClick = () => devTrait.ShowMuzzles ^= true;
+
 			var allTechCheckbox = widget.Get<CheckboxWidget>("ENABLE_TECH");
 			allTechCheckbox.IsChecked = () => devTrait.AllTech;
 			allTechCheckbox.OnClick = () => Order(world, "DevEnableTech");
@@ -55,6 +59,14 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 
 			widget.Get<ButtonWidget>("GIVE_EXPLORATION").OnClick = () =>
 				world.IssueOrder(new Order("DevGiveExploration", world.LocalPlayer.PlayerActor, false));
+
+			widget.Get<ButtonWidget>("RESET_EXPLORATION").OnClick = () =>
+				world.IssueOrder(new Order("DevResetExploration", world.LocalPlayer.PlayerActor, false));
+
+			var dbgOverlay = world.WorldActor.TraitOrDefault<DebugOverlay>();
+			var showAstarCostCheckbox = widget.Get<CheckboxWidget>("SHOW_ASTAR");
+			showAstarCostCheckbox.IsChecked = () => dbgOverlay != null ? dbgOverlay.Visible : false;
+			showAstarCostCheckbox.OnClick = () => { if (dbgOverlay != null) dbgOverlay.Visible ^= true; };
 
 			widget.Get<ButtonWidget>("CLOSE").OnClick = () => { Ui.CloseWindow(); onExit(); };
 		}
