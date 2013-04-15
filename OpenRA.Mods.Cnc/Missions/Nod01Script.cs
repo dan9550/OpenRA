@@ -21,6 +21,8 @@ using OpenRA.Network;
 using OpenRA.Scripting;
 using OpenRA.Traits;
 
+using OpenRA.Mods.RA.Missions;
+
 namespace OpenRA.Mods.Cnc.Missions
 {
     class Nod01ScriptInfo : TraitInfo<Nod01Script>, Requires<SpawnMapActorsInfo> { }
@@ -78,28 +80,30 @@ namespace OpenRA.Mods.Cnc.Missions
 
         void MissionFailed(string text)
         {
-            if (nod.WinState != WinState.Undefined)
-            {
-                return;
-            }
-            nod.WinState = WinState.Lost;
-            foreach (var actor in world.Actors.Where(a => a.IsInWorld && a.Owner == nod && !a.IsDead()))
-            {
-                actor.Kill(actor);
-            }
-            Game.AddChatLine(Color.Red, "Mission failed", text);
-            Sound.Play("fail1.aud");
+            //if (nod.WinState != WinState.Undefined)
+            //{
+            //    return;
+            //}
+            //nod.WinState = WinState.Lost;
+            //foreach (var actor in world.Actors.Where(a => a.IsInWorld && a.Owner == nod && !a.IsDead()))
+            //{
+            //    actor.Kill(actor);
+            //}
+            //Game.AddChatLine(Color.Red, "Mission failed", text);
+            //Sound.Play("fail1.aud");
+            MissionUtils.CoopMissionFailed(world, text, nod);
         }
 
         void MissionAccomplished(string text)
         {
-            if (nod.WinState != WinState.Undefined)
-            {
-                return;
-            }
-            nod.WinState = WinState.Won;
-            Game.AddChatLine(Color.Green, "Mission accomplished", text);
-            Sound.Play("accom1.aud");
+            //if (nod.WinState != WinState.Undefined)
+            //{
+            //    return;
+            //}
+            //nod.WinState = WinState.Won;
+            //Game.AddChatLine(Color.Green, "Mission accomplished", text);
+            //Sound.Play("accom1.aud");
+            MissionUtils.CoopMissionAccomplished(world, text, nod);
         }
 
         public void Tick(Actor self)
@@ -124,6 +128,12 @@ namespace OpenRA.Mods.Cnc.Missions
                 NODReinforceNthB();
                 Sound.Play("reinfor1.aud");
             }
+            if (!world.Actors.Any(a => (a.Owner == nod) && !a.IsDead() ))
+            {
+                //objectives[DestroyID].Status = ObjectiveStatus.Failed;
+                //OnObjectivesUpdated(true);
+                MissionFailed("The remaining Allied forces in the area have been wiped out.");
+            }
             // objectives
             if (currentObjective == 0)
             {
@@ -146,13 +156,13 @@ namespace OpenRA.Mods.Cnc.Missions
             }
         }
 
-        IEnumerable<Actor> UnitsNearActor(Actor actor, int range)
-        {
-            return world.FindUnitsInCircle(actor.CenterLocation, Game.CellSize * range)
-                .Where(a => a.IsInWorld && a != world.WorldActor && !a.Destroyed && a.HasTrait<IMove>() && !a.Owner.NonCombatant);
-        }
+        //IEnumerable<Actor> UnitsNearActor(Actor actor, int range)
+        //{
+        //    return world.FindUnitsInCircle(actor.CenterLocation, Game.CellSize * range)
+        //        .Where(a => a.IsInWorld && a != world.WorldActor && !a.Destroyed && a.HasTrait<IMove>() && !a.Owner.NonCombatant);
+        //}
 
-        void NODReinforceNthA()
+        public void NODReinforceNthA()
         {
             nr1 = world.CreateActor(true, NRName, new TypeDictionary { new OwnerInit(nod), new LocationInit(nr1.Location) });
             nr1 = world.CreateActor(true, NRName, new TypeDictionary { new OwnerInit(nod), new LocationInit(nr1.Location) });
