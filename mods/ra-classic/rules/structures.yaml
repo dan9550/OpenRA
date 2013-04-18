@@ -124,7 +124,7 @@ SPEN:
 		Dimensions: 3,3
 		Adjacent: 8
 		TerrainTypes: Water
-	-GivesBuildableArea:
+	GivesBuildableArea:
 	Health:
 		HP: 1000
 	Armor:
@@ -179,7 +179,7 @@ SYRD:
 		Dimensions: 3,3
 		Adjacent: 8
 		TerrainTypes: Water
-	-GivesBuildableArea:
+	GivesBuildableArea:
 	Health:
 		HP: 1000
 	Armor:
@@ -736,7 +736,7 @@ SILO:
 		Description: Stores excess harvested Ore
 	Building:
 		Power: -10
-	-GivesBuildableArea:
+	GivesBuildableArea:
 	Health:
 		HP: 300
 	Armor:
