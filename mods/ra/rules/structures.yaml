@@ -123,6 +123,16 @@ SPEN:
 	RepairsUnits:
 	RallyPoint:
 	ProductionBar:
+	SonarPulsePower:
+		Image: gpssicon
+		OneShot: no
+		ChargeTime: 1
+		Description: Sonar Pulse
+		LongDesc: Reveals enemy submarines
+		RevealDelay: 15
+		LaunchSound: satlnch1.aud
+	SupportPowerChargeBar:
+	
 
 SYRD:
 	Inherits: ^Building

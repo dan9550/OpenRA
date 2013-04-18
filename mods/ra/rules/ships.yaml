@@ -47,6 +47,7 @@ SS:
 	DebugNextAutoTargetScanTime:
 		InitialStance: HoldFire
 	AttackMove:
+#	PulseDetect:
 
 MSUB:
 	Inherits: ^Ship
