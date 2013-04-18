@@ -543,6 +543,23 @@ apc:
 		Length: 3
 	unload:
 		Start: 32
+		
+stnk:
+	idle:
+		Start: 0
+		Facings: 32
+	turret:
+		Start: 38
+		Facings: 32
+#	muzzle: minigun
+#		Start: 0
+#		Length: 6
+#		Facings: 8
+	close:
+		Start: 32
+		Length: 3
+	unload:
+		Start: 32
 
 mnly:
 	idle:

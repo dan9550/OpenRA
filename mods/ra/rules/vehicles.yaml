@@ -388,6 +388,48 @@ APC:
 		MaxWeight: 5
 		PipCount: 5
 		UnloadFacing: 220
+		
+STNK:
+	Inherits: ^Tank
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 160
+		Owner: allies
+		Prerequisites: weap, atek
+		Hotkey: s
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Phase Transport
+		Description: Stealthed infantry transport.\n  Strong vs Infantry, Light Vehicles\n  Weak vs Tanks, Aircraft
+	Health:
+		HP: 220
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 10
+	RevealsShroud:
+		Range: 5
+	Turreted:
+		ROT: 10
+		Offset: 0,0,85
+	Armament:
+		Weapon: ChronoTusk
+		LocalOffset: 0,0,171
+	AttackFrontal:
+	RenderUnit:
+#	WithMuzzleFlash:
+	AutoTarget:
+	DebugRetiliateAgainstAggressor:
+	DebugNextAutoTargetScanTime:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 2
+		PipCount: 2
+		UnloadFacing: 220
+	Cloak:
+		InitialDelay: 80
+		CloakDelay: 80
 
 MNLY.AP:
 	Inherits: ^Tank
