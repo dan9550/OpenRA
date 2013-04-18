@@ -207,7 +207,7 @@ World:
 		ResourceType: 1
 		Palette: player
 		SpriteNames: gold01,gold02,gold03,gold04
-		ValuePerUnit: 25
+		ValuePerUnit: 35
 		Name: Ore
 		PipColor: Yellow
 		AllowedTerrainTypes: Clear,Road
@@ -216,7 +216,7 @@ World:
 		ResourceType: 2
 		Palette: player
 		SpriteNames: gem01,gem02,gem03,gem04
-		ValuePerUnit: 50
+		ValuePerUnit: 70
 		Name: Gems
 		PipColor: Red
 		AllowedTerrainTypes: Clear,Road
