@@ -68,14 +68,14 @@ MSLO:
 		LaunchSound: alaunch1.aud
 		MissileWeapon: atomic
 		SpawnOffset: 10,0
-	CanPowerDown:
+#	CanPowerDown:
 	RequiresPower:
 	SupportPowerChargeBar:
 	
 GAP:
 	Inherits: ^Building
 	RequiresPower:
-	CanPowerDown:
+#	CanPowerDown:
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -212,7 +212,7 @@ SYRD:
 	ProductionBar:
 
 IRON:
-	CanPowerDown:
+#	CanPowerDown:
 	Inherits: ^Building
 	RequiresPower:
 	Buildable:
@@ -252,7 +252,7 @@ IRON:
 PDOX:
 	Inherits: ^Building
 	RequiresPower:
-	CanPowerDown:
+#	CanPowerDown:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 120
@@ -291,7 +291,7 @@ PDOX:
 TSLA:
 	Inherits: ^Building
 	RequiresPower:
-	CanPowerDown:
+#	CanPowerDown:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
@@ -328,7 +328,7 @@ TSLA:
 AGUN:
 	Inherits: ^Building
 	RequiresPower:
-	CanPowerDown:
+#	CanPowerDown:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 50
@@ -368,7 +368,7 @@ AGUN:
 
 DOME:
 	RequiresPower:
-	CanPowerDown:
+#	CanPowerDown:
 	Inherits: ^Building
 	Buildable:
 		Queue: Building
@@ -575,7 +575,7 @@ SAM:
 	RenderRangeCircle:
 		RangeCircleType: aa
 	RequiresPower:
-	CanPowerDown:
+#	CanPowerDown:
 
 ATEK:
 	Inherits: ^Building
