@@ -19,7 +19,7 @@ KENN:
 		Type: Wood
 	RevealsShroud:
 		Range: 4
-	Bib:
+#	Bib:
 #	RallyPoint:
 #	Exit@1:
 #		SpawnOffset: -4,19
