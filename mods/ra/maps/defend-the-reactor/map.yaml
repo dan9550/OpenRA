@@ -1,0 +1,223 @@
+Selectable: True
+
+MapFormat: 5
+
+Title: Defend the Reactor!
+
+Description: Just a quick TD map
+
+Author: Dan9550
+
+Tileset: INTERIOR
+
+MapSize: 64,32
+
+Bounds: 8,8,50,16
+
+UseAsShellmap: False
+
+Type: Tower Defense
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Race: allies
+	PlayerReference@Allies:
+		Name: Allies
+		Playable: True
+		AllowBots: False
+		LockRace: True
+		Race: allies
+		LockColor: True
+		ColorRamp: 161,134,200,30
+		LockSpawn: True
+		LockTeam: True
+		Enemies: Soviets
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Race: allies
+		Enemies: Allies,Soviets
+	PlayerReference@Soviets:
+		Name: Soviets
+		Race: soviet
+		ColorRamp: 3,255,127,28
+		Enemies: Allies,Creeps
+
+Actors:
+	WPE: waypoint
+		Location: 10,23
+		Owner: Neutral
+	WP1: waypoint
+		Location: 10,10
+		Owner: Neutral
+	WP2: waypoint
+		Location: 19,10
+		Owner: Neutral
+	WP3: waypoint
+		Location: 19,21
+		Owner: Neutral
+	WP4: waypoint
+		Location: 28,21
+		Owner: Neutral
+	WP5: waypoint
+		Location: 28,10
+		Owner: Neutral
+	WP6: waypoint
+		Location: 37,10
+		Owner: Neutral
+	WP7: waypoint
+		Location: 37,21
+		Owner: Neutral
+	WP8: waypoint
+		Location: 46,21
+		Owner: Neutral
+	WP9: waypoint
+		Location: 46,10
+		Owner: Neutral
+	WPF: waypoint
+		Location: 51,10
+		Owner: Neutral
+	goal: miss
+		Location: 53,10
+		Owner: Allies
+	fact: fact
+		Location: 8,4
+		Owner: Allies
+	pwr1: apwr
+		Location: 8,1
+		Owner: Allies
+	pwr2: apwr
+		Location: 11,1
+		Owner: Allies
+	pwr3: apwr
+		Location: 14,1
+		Owner: Allies
+	pwr4: apwr
+		Location: 17,1
+		Owner: Allies
+	pwr5: apwr
+		Location: 20,1
+		Owner: Allies
+	pwr6: apwr
+		Location: 23,1
+		Owner: Allies
+	pwr7: apwr
+		Location: 26,1
+		Owner: Allies
+	pwr8: apwr
+		Location: 29,1
+		Owner: Allies
+	pwr9: apwr
+		Location: 32,1
+		Owner: Allies
+	pwr10: apwr
+		Location: 35,1
+		Owner: Allies
+	pwr11: apwr
+		Location: 38,1
+		Owner: Allies
+	pwr12: apwr
+		Location: 41,1
+		Owner: Allies
+	pwr13: apwr
+		Location: 44,1
+		Owner: Allies
+	pwr14: apwr
+		Location: 47,1
+		Owner: Allies
+	pwr15: apwr
+		Location: 50,1
+		Owner: Allies
+	pwr16: apwr
+		Location: 53,1
+		Owner: Allies
+	pwr17: apwr
+		Location: 56,1
+		Owner: Allies
+	barr: barr
+		Location: 11,4
+		Owner: Allies
+	tent: tent
+		Location: 13,4
+		Owner: Allies
+	dome: domf
+		Location: 15,4
+		Owner: Allies
+	spawn: mpspawn
+		Location: 9,6
+		Owner: Neutral
+	Actor0: gap
+		Location: 14,13
+		Owner: Allies
+	Actor1: gap
+		Location: 15,17
+		Owner: Allies
+	Actor2: gap
+		Location: 14,21
+		Owner: Allies
+	Actor3: gap
+		Location: 23,8
+		Owner: Allies
+	Actor4: gap
+		Location: 24,12
+		Owner: Allies
+	Actor5: gap
+		Location: 23,15
+		Owner: Allies
+	Actor6: gap
+		Location: 32,21
+		Owner: Allies
+	Actor7: gap
+		Location: 33,17
+		Owner: Allies
+	Actor8: gap
+		Location: 32,13
+		Owner: Allies
+	Actor9: gap
+		Location: 41,8
+		Owner: Allies
+	Actor10: gap
+		Location: 42,12
+		Owner: Allies
+	Actor11: gap
+		Location: 41,16
+		Owner: Allies
+	Actor12: gap
+		Location: 50,21
+		Owner: Allies
+	Actor13: gap
+		Location: 51,17
+		Owner: Allies
+	Actor14: gap
+		Location: 50,13
+		Owner: Allies
+	Actor15: gap
+		Location: 54,13
+		Owner: Allies
+	Actor16: gap
+		Location: 56,17
+		Owner: Allies
+	Actor17: gap
+		Location: 54,21
+		Owner: Allies
+
+Smudges:
+
+Rules:
+	Player:
+		-ConquestVictoryConditions:
+	World:
+		-CrateDrop:
+		-SpawnMPUnits:
+		TowerDef01Script:
+
+Sequences:
+
+Weapons:
+
+Voices:
+
+Notifications:
