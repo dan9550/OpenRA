@@ -96,6 +96,7 @@ ChromeLayout:
 	mods/cnc/chrome/tooltips.yaml
 	mods/cnc/chrome/irc.yaml
 	mods/cnc/chrome/assetbrowser.yaml
+	mods/cnc/chrome/installoptional.yaml
 
 Weapons:
 	mods/cnc/weapons.yaml
