@@ -13,6 +13,10 @@ Folders:
 	~^Content/ts
 # Red Alert
 	./mods/ra/uibits
+# Temporary
+	~^/Content/ts/ts-base
+	~^/Content/ts/ts-scores
+	~^/Content/ts/ts-movies
 
 MapFolders:
 	./mods/ts/maps
