@@ -29,17 +29,17 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 		Widget installingContainer, insertDiskContainer;
 
 		//Here to.....
-		public string[] hashFiles;
-		public string[] knownHashes;
+		public string[] hashFiles = new string[] { };
+		public string[] knownHashes = new string[] { };
 
-		public string baseDiscFile;
-		public string[] baseFiles;
+		public string baseDiscFile = "";
+		public string[] baseFiles = new string[] { };
 
-		public string scoresDiscFile;
-		public string[] scoresFiles;
+		public string scoresDiscFile = "";
+		public string[] scoresFiles = new string[] { };
 
-		public string moviesDiscFile;
-		public string[] moviesFiles;
+		public string moviesDiscFile = "";
+		public string[] moviesFiles = new string[] { };
 		//.... HERE!
 
 		[ObjectCreator.UseCtor]
@@ -104,10 +104,10 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 
 		void thisisnotthevoidyourlookingfor(bool instchk, int content) //All things that should be loaded externally, here for lazy testing
 		{
-			if (instchk)
+			if (instchk == true)
 			{
-				string[] hashFiles = { "TS1.DSK", "TS2.DSK", "TS3.DSK" };
-				string[] knownHashes = { "CE-33-15-C4-FA-F7-D7-7D-B2-D2-30-7D-2D-17-1E-8D-BE-91-48-97", "4B-2E-EE-3E-28-33-EC-16-DF-FB-41-4D-69-8B-CF-E6-67-9C-65-94", "BC-56-44-49-A1-5A-61-E5-D3-50-C2-63-2D-32-7A-B3-86-D9-91-C9" };
+				hashFiles = new string[] { "TS1.DSK", "TS2.DSK", "TS3.DSK" };
+				knownHashes = new string[] { "CE-33-15-C4-FA-F7-D7-7D-B2-D2-30-7D-2D-17-1E-8D-BE-91-48-97", "4B-2E-EE-3E-28-33-EC-16-DF-FB-41-4D-69-8B-CF-E6-67-9C-65-94", "BC-56-44-49-A1-5A-61-E5-D3-50-C2-63-2D-32-7A-B3-86-D9-91-C9" };
 			}
 			else
 			{
@@ -128,7 +128,7 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 						moviesDiscFile = "MOVIES01.MIX";
 						moviesFiles = new string[] { "beachead.vqa", "coup.vqa", "diskdest.vqa", "empulse.vqa", "eva.vqa", "gdi01_sb.vqa", "gdi02_sb.vqa", "gdi03_sb.vqa", "gdi_finl.vqa", "gdi_m02.vqa", "gdi_m03.vqa", 
 						"gdi_m04.vqa", "gdi_m05.vqa", "gdi_m06.vqa", "gdi_m07.vqa", "gdi_m08.vqa", "gdi_m09a.vqa", "gdi_m09b.vqa", "gdi_m09c.vqa", "gdi_m10a.vqa", "gdi_m11.vqa", "gdi_m12a.vqa", "gdim09cw.vqa", 
-						"gdim09dl.vqa", "genwin01.vqa", "hideseek.vqa", "iceskate.vqa", "intro.vqa", "killmech.vqa", "mechatak.vqa", "n_logo_w.vqa", "nod_flag.vqa", "nowcnot.vqa", "orcastrk.vqa", "podasslt.vqa", 
+						"gdim09d1.vqa", "genwin01.vqa", "hideseek.vqa", "iceskate.vqa", "intro.vqa", "killmech.vqa", "mechatak.vqa", "n_logo_w.vqa", "nod_flag.vqa", "nowcnot.vqa", "orcastrk.vqa", "podasslt.vqa", 
 						"retrbtn.vqa", "startup.vqa", "trainrob.vqa", "ufoguard.vqa", "unstpble.vqa", "wwlogo.vqa" };
 						break;
 
@@ -178,6 +178,7 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 			var dest = new string[] { Platform.SupportDir, "Content", "ts" }.Aggregate(Path.Combine);
 
 			//These things are hopefully not permanent
+
 			var baseDest = new string[] { dest, "ts-base", }.Aggregate(Path.Combine);
 			var scoresDest = new string[] { dest, "ts-scores" }.Aggregate(Path.Combine);
 			var moviesDest = new string[] { dest, "ts-movies", }.Aggregate(Path.Combine);
