@@ -28,7 +28,19 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 		ButtonWidget retryButton, backButton;
 		Widget installingContainer, insertDiskContainer;
 
-		public readonly Dictionary<string, string> Packages;
+		//Here to.....
+		public string[] hashFiles;
+		public string[] knownHashes;
+
+		public string baseDiscFile;
+		public string[] baseFiles;
+
+		public string scoresDiscFile;
+		public string[] scoresFiles;
+
+		public string moviesDiscFile;
+		public string[] moviesFiles;
+		//.... HERE!
 
 		[ObjectCreator.UseCtor]
 		public TSInstallFromCDLogic(Widget widget, Action continueLoading)
@@ -56,8 +68,8 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 					File.Exists(new string[] { diskRoot, "install", "tibsun.mix" }.Aggregate(Path.Combine));
 
 			var path = InstallUtils.GetMountedDisk(ValidDiskFilter);
-			string[] hashFiles = { "TS1.DSK", "TS2.DSK", "TS3.DSK" }; //again load from yaml i guess is the right way
-			string[] knownHashes = { "CE-33-15-C4-FA-F7-D7-7D-B2-D2-30-7D-2D-17-1E-8D-BE-91-48-97", "4B-2E-EE-3E-28-33-EC-16-DF-FB-41-4D-69-8B-CF-E6-67-9C-65-94", "" }; //load from YAML l8a
+
+			thisisnotthevoidyourlookingfor(true, 0); //Placeholder for stuff that should be loaded from YAML
 
 			new Thread(() =>
 			{
@@ -90,12 +102,70 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 			}) { IsBackground = true}.Start();
 		}
 
-		static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)
+		void thisisnotthevoidyourlookingfor(bool instchk, int content) //All things that should be loaded externally, here for lazy testing
 		{
-			if (!yaml.ContainsKey(key))
-				return new string[] { };
+			if (instchk)
+			{
+				string[] hashFiles = { "TS1.DSK", "TS2.DSK", "TS3.DSK" };
+				string[] knownHashes = { "CE-33-15-C4-FA-F7-D7-7D-B2-D2-30-7D-2D-17-1E-8D-BE-91-48-97", "4B-2E-EE-3E-28-33-EC-16-DF-FB-41-4D-69-8B-CF-E6-67-9C-65-94", "BC-56-44-49-A1-5A-61-E5-D3-50-C2-63-2D-32-7A-B3-86-D9-91-C9" };
+			}
+			else
+			{
+				switch(content)
+				{
+					case 0:
+						//GDI
+						baseDiscFile = "INSTALL/TIBSUN.MIX";
+						baseFiles = new string[] { "cache.mix", "conquer.mix", "isosnow.mix", "isotemp.mix", "local.mix", "sidec01.mix", "sidec02.mix", "sno.mix", "snow.mix", "sounds.mix", "speech01.mix", 
+						"speech02.mix", "tem.mix", "temperat.mix" };
 
-			return yaml[key].NodesDict.Keys.ToArray();
+						//GDI Scores
+						scoresDiscFile = "SCORES.MIX";
+						scoresFiles = new string[] { "nodcrush.aud", "duskhour.aud", "scout.aud", "defense.aud", "infrared.aud", "pharotek.aud", "timebomb.aud", "whatlurk.aud", "redsky.aud", "heroism.aud", 
+						"mutants.aud", "flurry.aud", "storm.aud", "valves1b.aud", "madrap.aud", "approach.aud", "lonetrop.aud", "gloom.aud", "score.aud" };
+
+						//GDI Movies
+						moviesDiscFile = "MOVIES01.MIX";
+						moviesFiles = new string[] { "beachead.vqa", "coup.vqa", "diskdest.vqa", "empulse.vqa", "eva.vqa", "gdi01_sb.vqa", "gdi02_sb.vqa", "gdi03_sb.vqa", "gdi_finl.vqa", "gdi_m02.vqa", "gdi_m03.vqa", 
+						"gdi_m04.vqa", "gdi_m05.vqa", "gdi_m06.vqa", "gdi_m07.vqa", "gdi_m08.vqa", "gdi_m09a.vqa", "gdi_m09b.vqa", "gdi_m09c.vqa", "gdi_m10a.vqa", "gdi_m11.vqa", "gdi_m12a.vqa", "gdim09cw.vqa", 
+						"gdim09dl.vqa", "genwin01.vqa", "hideseek.vqa", "iceskate.vqa", "intro.vqa", "killmech.vqa", "mechatak.vqa", "n_logo_w.vqa", "nod_flag.vqa", "nowcnot.vqa", "orcastrk.vqa", "podasslt.vqa", 
+						"retrbtn.vqa", "startup.vqa", "trainrob.vqa", "ufoguard.vqa", "unstpble.vqa", "wwlogo.vqa" };
+						break;
+
+					case 1:
+						//Nod
+						baseDiscFile = "INSTALL/TIBSUN.MIX";
+						baseFiles = new string[] { "cache.mix", "conquer.mix", "isosnow.mix", "isotemp.mix", "local.mix", "sidec01.mix", "sidec02.mix", "sno.mix", "snow.mix", "sounds.mix", "speech01.mix", 
+						"speech02.mix", "tem.mix", "temperat.mix" };
+
+						//Nod Scores
+						scoresDiscFile = "SCORES.MIX";
+						scoresFiles = new string[] { "nodcrush.aud", "duskhour.aud", "scout.aud", "defense.aud", "infrared.aud", "pharotek.aud", "timebomb.aud", "whatlurk.aud", "redsky.aud", "heroism.aud", 
+						"mutants.aud", "flurry.aud", "storm.aud", "valves1b.aud", "madrap.aud", "approach.aud", "lonetrop.aud", "gloom.aud", "score.aud" };
+
+						//Nod Movies
+						moviesDiscFile = "MOVIES02.MIX";
+						moviesFiles = new string[] { "cap_trat.vqa", "dambreak.vqa", "diskdest.vqa", "eva.vqa", "gdi_flag.vqa", "gdi_logo.vqa", "gennodl1.vqa", "genwin01.vqa", "icbmlnch.vqa", "intro.vqa",
+						"kill_gdi.vqa", "killmech.vqa", "n_logo_l.vqa", "n_logo_w.vqa", "nod01_sb.vqa", "nod02_sb.vqa", "nod06abw.vqa", "nod_finl.vqa", "nod_flag.vqa", "nod_m02.vqa", "nod_m03.vqa", "nod_m04.vqa", 
+						"nod_m05.vqa", "nod_m06.vqa", "nod_m07.vqa", "nod_m08.vqa", "nod_m09.vqa", "nod_m10.vqa", "nod_m11.vqa", "nod_m12.vqa", "nowcnot.vqa", "retrbtn.vqa", "startup.vqa", "tenevict.vqa", 
+						"unstpble.vqa", "wwlogo.vqa" };
+						break;
+
+					case 2:
+						//Firestorm
+						baseDiscFile = "";
+						baseFiles = new string[] {  };
+
+						//Firestorm Scores
+						scoresDiscFile = "SCORES01.MIX";
+						scoresFiles = new string[] {  };
+
+						//Firestrom Movies
+						moviesDiscFile = "MOVIES03.MIX";
+						moviesFiles = new string[] { };
+						break;
+				}	
+			}	
 		}
 
 		void Install(string source, int contentID)
@@ -107,33 +177,13 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 
 			var dest = new string[] { Platform.SupportDir, "Content", "ts" }.Aggregate(Path.Combine);
 
-			//ContentID controls which values are loaded from yaml
-			var yamlpath = new[] { "mods", "ts", "install.yaml" }.Aggregate(Path.Combine);
-			var yaml = new MiniYaml(null, MiniYaml.FromFile(yamlpath)).NodesDict;
-
-			//Base
+			//These things are hopefully not permanent
 			var baseDest = new string[] { dest, "ts-base", }.Aggregate(Path.Combine);
-			var baseDiscFile = YamlList(yaml, "BaseDiscFile").ToString(); //This ToString() thing needs to be replaced
-			var baseFiles = YamlList(yaml, "BaseFiles");
-
-			Console.WriteLine(baseDest);
-			Console.WriteLine(baseDiscFile);
-			Console.WriteLine(baseFiles);
-
-			//Base Scores
 			var scoresDest = new string[] { dest, "ts-scores" }.Aggregate(Path.Combine);
-			var scoresDiscFile = "SCORES.MIX";
-			var scoresFiles = new string[] { "nodcrush.aud", "duskhour.aud", "scout.aud", "defense.aud", "infrared.aud", "pharotek.aud", "timebomb.aud", "whatlurk.aud", "redsky.aud", "heroism.aud", 
-				"mutants.aud", "flurry.aud", "storm.aud", "valves1b.aud", "madrap.aud", "approach.aud", "lonetrop.aud", "gloom.aud", "score.aud" };
-
-			//Base Movies
 			var moviesDest = new string[] { dest, "ts-movies", }.Aggregate(Path.Combine);
-			var moviesDiscFile = "MOVIES01.MIX";
-			var moviesFiles = new string[] { "cache.mix", "conquer.mix", "isosnow.mix", "isotemp.mix", "local.mix", "sidec01.mix", "sidec02.mix", "sno.mix", "snow.mix", "sounds.mix", "speech01.mix", 
-				"speech02.mix", "tem.mix", "temperat.mix" };
+			var datatypes = new string[] { "base", "scores", "movies" };
 
-			//var dest = new string[] { Platform.SupportDir, "Content", "ts" }.Aggregate(Path.Combine);
-			//var copyFiles = new string[] { "install/tibsun.mix", "scores.mix", "multi.mix"};
+			thisisnotthevoidyourlookingfor(false, contentID); //<-- Bad code =P
 
 			var installCounter = 0;
 			var installTotal = baseFiles.Count() + scoresFiles.Count() + moviesFiles.Count();
