@@ -224,7 +224,10 @@ namespace OpenRA
 			worldRenderer.RefreshPalette();
 
 			if (!isShellmap)
+			{
 				Sound.PlayNotification(null, "Speech", "StartGame", null);
+				TalkFX.TFXGameInit();
+			}
 		}
 
 		public static bool IsHost
@@ -272,6 +275,8 @@ namespace OpenRA
 			FileSystem.Mount("."); // Needed to access shaders
 			Renderer.Initialize( Game.Settings.Graphics.Mode );
 			Renderer = new Renderer();
+
+			TalkFX.TalkFXInit();
 
 			Console.WriteLine("Available mods:");
 			foreach(var mod in Mod.AllMods)
@@ -400,7 +405,11 @@ namespace OpenRA
 			OnQuit();
 		}
 
-		public static void Exit() { quit = true; }
+		public static void Exit() 
+		{
+			TalkFX.FXOff();
+			quit = true; 
+		}
 
 		public static Action<Color,string,string> AddChatLine = (c,n,s) => {};
 

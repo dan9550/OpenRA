@@ -90,6 +90,8 @@ namespace OpenRA.Mods.RA.Buildings
 
 		int nextPowerAdviceTime = 0;
 		bool wasLowPower = false;
+		bool wasNormPower = false;
+		bool wasCritPower = false;
 		bool wasHackEnabled;
 
 		public void Tick(Actor self)
@@ -101,8 +103,20 @@ namespace OpenRA.Mods.RA.Buildings
 			}
 
 			var lowPower = totalProvided < totalDrained;
+			var normPower = totalProvided >= totalDrained;
+			var critPower = totalProvided < totalDrained / 2;
+
+			if (normPower && !wasNormPower)
+			{
+				TalkFX.NormalFX();
+			}
+			wasNormPower = normPower;
+
 			if (lowPower && !wasLowPower)
+			{
 				nextPowerAdviceTime = 0;
+				TalkFX.LowPowerFX();
+			}
 			wasLowPower = lowPower;
 
 			if (--nextPowerAdviceTime <= 0)

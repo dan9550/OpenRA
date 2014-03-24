@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using OpenRA.FileFormats;
+using DBus;
+
+[Interface("org.roccat")]
+interface IFx 
+{
+	void TalkFx(UInt32 effect, UInt32 ambient_color, UInt32 event_color);
+	void TalkFxOff();
+}
+
+namespace OpenRA.SpecialHardware
+{
+
+	class TalkFX
+	{
+		static IFx FX;
+		UInt32 ColourA;
+		UInt32 ColourB;
+
+		public void HSLtoUInt32()
+		{
+			ColourA = Convert.ToUInt32(Game.Settings.Player.Color.RGB.ToArgb());
+			ColourB = Convert.ToUInt32(Game.Settings.Player.Color.RGB.ToArgb());
+		}
+
+		public void SetColour()
+		{
+			//may use for setting different colours for in game vs menus
+		}
+
+		public void NormalFX()
+		{
+			FX.TalkFx(256, ColourA, ColourB);
+		}
+
+		public void LowPowerFX()
+		{
+			FX.TalkFx(1000, ColourA, ColourB);
+		}
+
+		public void CriticalPowerFX()
+		{
+			FX.TalkFx(0, 0, 0);
+		}
+
+		public void FXOff()
+		{
+			FX.TalkFxOff();
+		}
+	}
+}

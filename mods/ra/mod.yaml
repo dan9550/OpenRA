@@ -150,3 +150,6 @@ Fonts:
 	TinyBold:
 		Font:FreeSansBold.ttf
 		Size:10
+
+TalkFX:
+	Color: 255,0,0
