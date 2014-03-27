@@ -125,6 +125,15 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 				});
 			};
 
+			extrasMenu.Get<ButtonWidget>("CONTENT_BUTTON").OnClick = () =>
+			{
+				menuType = MenuType.None;
+				Ui.OpenWindow("CONTENT_PANEL", new WidgetArgs
+				{
+					{ "onExit", () => menuType = MenuType.Extras },
+				});
+			};
+
 			extrasMenu.Get<ButtonWidget>("BACK_BUTTON").OnClick = () => menuType = MenuType.Main;
 		}
 

@@ -10,7 +10,9 @@ Folders:
 	./mods/ts
 	./mods/ts/bits
 	./mods/ts/uibits
-	~^Content/ts
+	~^/Content/ts
+	~^/Content/ts/ts-base
+	~^/Content/ts/ts-scores
 # Red Alert
 	./mods/ra/uibits
 # Temporary
@@ -20,7 +22,7 @@ Folders:
 
 MapFolders:
 	./mods/ts/maps
-	~^maps/ts
+	~^/maps/ts
 
 Packages:
 # Tiberian Sun
@@ -106,14 +108,11 @@ ChromeLayout:
 	mods/ra/chrome/ingame-fmvplayer.yaml
 	mods/ra/chrome/ingame-menu.yaml
 	mods/ra/chrome/ingame-objectives.yaml
-	mods/ra/chrome/ingame-observer.yaml
 	mods/ra/chrome/ingame-observerstats.yaml
-	mods/ra/chrome/ingame-player.yaml
-	mods/ra/chrome/mainmenu.yaml
+	mods/ts/chrome/mainmenu.yaml
 	mods/ra/chrome/settings.yaml
 	mods/ra/chrome/credits.yaml
 	mods/ra/chrome/lobby.yaml
-	mods/ra/chrome/lobby-mappreview.yaml
 	mods/ra/chrome/lobby-playerbin.yaml
 	mods/ra/chrome/lobby-dialogs.yaml
 	mods/ts/chrome/color-picker.yaml
@@ -131,6 +130,7 @@ ChromeLayout:
 	mods/ra/chrome/irc.yaml
 	mods/ra/chrome/missionbrowser.yaml
 	mods/ra/chrome/confirmation-dialogs.yaml
+	mods/ts/chrome/content.yaml
 
 Weapons:
 	mods/ts/weapons.yaml
