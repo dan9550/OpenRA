@@ -11,8 +11,6 @@ Folders:
 	./mods/ts/bits
 	./mods/ts/uibits
 	~^/Content/ts
-	~^/Content/ts/ts-base
-	~^/Content/ts/ts-scores
 # Red Alert
 	./mods/ra/uibits
 # Temporary

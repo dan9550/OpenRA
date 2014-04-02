@@ -30,7 +30,7 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 
 			panel.Get<ButtonWidget>("INSTALL_BUTTON").OnClick = () =>
 			{
-				Ui.OpenWindow("INSTALL_PANEL");
+				Ui.OpenWindow("INSTALL_FROMCD_PANEL");
 			};
 		}
 	}
