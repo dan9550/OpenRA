@@ -3,7 +3,7 @@ Background@CONTENT_PANEL:
 	X:(WINDOW_RIGHT - WIDTH)/2
 	Y:(WINDOW_BOTTOM - 400)/2
 	Width:400
-	Height:450
+	Height:350
 	Children:
 		Label@BLAH_TITLE:
 			Width:PARENT_RIGHT
@@ -12,24 +12,46 @@ Background@CONTENT_PANEL:
 			Font:Bold
 			Align:Center
 			Text:Installed Content
-		Label@BLEEP_ABOUT:
+		Label@CONTENT_ABOUT:
 			Width:PARENT_RIGHT
 			Y:60
 			Height:25
-			Text:From here you are able to install content from your Command & Conquer CD-ROMs. The content installed from CD includes base game files, music files, and movie files.
+			Align: Center
+			Text:From here you are able to install content from your 
+		Label@CONTENT_ABOUT2:
+			Width:PARENT_RIGHT
+			Y:80
+			Height:25
+			Align: Center
+			Text:Command & Conquer CD-ROMs. The content installed
+		Label@CONTENT_ABOUT3:
+			Width:PARENT_RIGHT
+			Y:100
+			Height:25
+			Align: Center
+			Text: from CD includes base game files, music, and movies.
+		Label@CONTENT_ABOUT4:
+			Width:PARENT_RIGHT
+			Y:150
+			Height:25
+			Align: Center
+			Text:Currently installed content files are:
 		Checkbox@GDI_CONTENT:
 			Width:PARENT_RIGHT
-			Y:90
+			X:20
+			Y:180
 			Height:25
 			Text:GDI Disc Content
 		Checkbox@NOD_CONTENT:
 			Width:PARENT_RIGHT
-			Y:120
+			X:20
+			Y:210
 			Height:25
 			Text:Nod Disc Content
 		Checkbox@FIRESTORM_CONTENT:
 			Width:PARENT_RIGHT
-			Y:150
+			X:20
+			Y:240
 			Height:25
 			Text:Firestorm Expansion Content
 		Button@INSTALL_BUTTON:
