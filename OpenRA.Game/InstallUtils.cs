@@ -61,11 +61,14 @@ namespace OpenRA
 			foreach (string s in files)
 			{
 				var destFile = Path.Combine(destPath, s);
-				using (var sourceStream = GlobalFileSystem.Open(s))
-				using (var destStream = File.Create(destFile))
+				if (!File.Exists(destFile)) //Should skip existing files :)
 				{
-					onProgress("Extracting " + s);
-					destStream.Write(sourceStream.ReadAllBytes());
+					using (var sourceStream = GlobalFileSystem.Open(s))
+					using (var destStream = File.Create(destFile))
+					{
+						onProgress("Extracting " + s);
+						destStream.Write(sourceStream.ReadAllBytes());
+					}
 				}
 			}
 
