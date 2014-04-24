@@ -42,6 +42,7 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 		public string[] moviesFiles = new string[] { };
 		//.... HERE!
 
+
 		[ObjectCreator.UseCtor]
 		public TSInstallFromCDLogic(Widget widget, Action continueLoading)
 		{
@@ -68,8 +69,15 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 					File.Exists(new string[] { diskRoot, "install", "tibsun.mix" }.Aggregate(Path.Combine));
 
 			var path = InstallUtils.GetMountedDisk(ValidDiskFilter);
+			var yaml = new MiniYaml(null, MiniYaml.FromFile("mods/ts/install.yaml")).NodesDict;
 
-			thisisnotthevoidyourlookingfor(true, 0); //Placeholder for stuff that should be loaded from YAML
+			//thisisnotthevoidyourlookingfor(true, 0); //Placeholder for stuff that should be loaded from YAML
+			hashFiles = YamlList(yaml, "HashFiles");
+			knownHashes = YamlList(yaml, "KnownHashes");
+
+			Console.WriteLine("Extra sure debig output of stuff loaded from YAML");
+			Console.WriteLine(hashFiles[0]);
+			Console.WriteLine(knownHashes[0]);
 
 			new Thread(() =>
 			{
@@ -85,8 +93,12 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 							{
 								string discHash = BitConverter.ToString(cryptoProvider.ComputeHash(sha1File));
 
+								//This i guess should check against all the hashes
 								if (knownHashes[contentID] == discHash)
+								{
+									sha1File.Close();
 									Install(path, contentID);
+								}
 							}
 							sha1File.Close();
 						}
@@ -102,12 +114,22 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 			}) { IsBackground = true}.Start();
 		}
 
-		void thisisnotthevoidyourlookingfor(bool instchk, int content) //All things that should be loaded externally, here for lazy testing
+		static string[] YamlList(Dictionary<string, MiniYaml> yaml, string key)
+		{
+			if (!yaml.ContainsKey(key))
+				return new string[] { };
+
+			return yaml[key].NodesDict.Keys.ToArray();
+		}
+
+		void thisisnotthevoidyourlookingfor(bool instchk, int content) //All things that should be loaded externally, here for lazy testing, using this to load things for different discs
 		{
 			if (instchk == true)
 			{
-				hashFiles = new string[] { "TS1.DSK", "TS2.DSK", "TS3.DSK" };
-				knownHashes = new string[] { "CE-33-15-C4-FA-F7-D7-7D-B2-D2-30-7D-2D-17-1E-8D-BE-91-48-97", "4B-2E-EE-3E-28-33-EC-16-DF-FB-41-4D-69-8B-CF-E6-67-9C-65-94", "BC-56-44-49-A1-5A-61-E5-D3-50-C2-63-2D-32-7A-B3-86-D9-91-C9" };
+				//hashFiles = new string[] { "TS1.DSK", "TS2.DSK", "TS3.DSK" };
+				//hashFiles = YamlList(yaml, "HashFiles");
+				//Console.WriteLine(hashFiles[0]);
+				//knownHashes = new string[] { "CE-33-15-C4-FA-F7-D7-7D-B2-D2-30-7D-2D-17-1E-8D-BE-91-48-97", "4B-2E-EE-3E-28-33-EC-16-DF-FB-41-4D-69-8B-CF-E6-67-9C-65-94", "BC-56-44-49-A1-5A-61-E5-D3-50-C2-63-2D-32-7A-B3-86-D9-91-C9" };
 			}
 			else
 			{
