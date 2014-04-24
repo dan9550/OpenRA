@@ -39,7 +39,7 @@ namespace OpenRA
 		}
 
 		// TODO: The package should be mounted into its own context to avoid name collisions with installed files
-		public static bool ExtractFromPackage(string srcPath, string package, string[] files, string destPath, Action<string> onProgress, Action<string> onError)
+		public static bool ExtractFromPackage(string srcPath, string package, string[] files, string destPath, Action<string> onProgress, Action<string> onError, bool encrypted = false)
 		{
 			if (!Directory.Exists(destPath))
 				Directory.CreateDirectory(destPath);
@@ -47,7 +47,16 @@ namespace OpenRA
 			if (!GlobalFileSystem.Exists(srcPath)) { onError("Cannot find " + package); return false; }
 			GlobalFileSystem.Mount(srcPath);
 			if (!GlobalFileSystem.Exists(package)) { onError("Cannot find " + package); return false; }
-			GlobalFileSystem.Mount(package);
+			{
+				if (encrypted == true)
+				{
+					GlobalFileSystem.Mount(package, "CRC32");
+				}
+				else
+				{
+					GlobalFileSystem.Mount(package);
+				}
+			}
 
 			foreach (string s in files)
 			{
