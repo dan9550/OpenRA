@@ -13,10 +13,6 @@ Folders:
 	~^/Content/ts
 # Red Alert
 	./mods/ra/uibits
-# Temporary
-	~^/Content/ts/ts-base
-	~^/Content/ts/ts-scores
-	~^/Content/ts/ts-movies
 
 MapFolders:
 	./mods/ts/maps
@@ -24,6 +20,9 @@ MapFolders:
 
 Packages:
 # Tiberian Sun
+	ts-base.orapak
+	~ts-scores.orapak
+	~ts-movies.orapak
 	~scores.mix:CRC32
 	~sidenc01.mix:CRC32
 	~sidenc02.mix:CRC32
@@ -39,21 +38,21 @@ Packages:
 	~sidecd01.mix:CRC32
 	~sidecd02.mix:CRC32
 	~tibsun.mix:CRC32
-	cache.mix:CRC32
-	conquer.mix:CRC32
-	isosnow.mix:CRC32
-	isotemp.mix:CRC32
-	local.mix:CRC32
-	sidec01.mix:CRC32
-	sidec02.mix:CRC32
-	sno.mix:CRC32
-	snow.mix:CRC32
-	sounds.mix:CRC32
+	~cache.mix:CRC32
+	~conquer.mix:CRC32
+	~isosnow.mix:CRC32
+	~isotemp.mix:CRC32
+	~local.mix:CRC32
+	~sidec01.mix:CRC32
+	~sidec02.mix:CRC32
+	~sno.mix:CRC32
+	~snow.mix:CRC32
+	~sounds.mix:CRC32
 # TODO: differentiate between:
-	speech01.mix:CRC32 # EVA
-#	speech02.mix:CRC32 # Cabal
-	tem.mix:CRC32
-	temperat.mix:CRC32
+	~speech01.mix:CRC32 # EVA
+#	~speech02.mix:CRC32 # Cabal
+	~tem.mix:CRC32
+	~temperat.mix:CRC32
 # Firestorm
 	~scores01.mix:CRC32
 	~expand01.mix:CRC32

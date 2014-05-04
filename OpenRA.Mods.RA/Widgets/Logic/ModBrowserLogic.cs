@@ -161,8 +161,12 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 		{
 			Game.RunAfterTick(() =>
 			{
+				//Check for mod files
+				//if files ok then this
 				Ui.CloseWindow();
 				Game.InitializeWithMod(mod.Id, null);
+				//if not then jump to install
+				//hmmm >.>
 			});
 		}
 	}

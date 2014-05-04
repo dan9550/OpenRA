@@ -40,19 +40,19 @@ Background@CONTENT_PANEL:
 			Width:PARENT_RIGHT
 			X:20
 			Y:180
-			Height:25
+			Height:20
 			Text:GDI Disc Content
 		Checkbox@NOD_CONTENT:
 			Width:PARENT_RIGHT
 			X:20
 			Y:210
-			Height:25
+			Height:20
 			Text:Nod Disc Content
 		Checkbox@FIRESTORM_CONTENT:
 			Width:PARENT_RIGHT
 			X:20
 			Y:240
-			Height:25
+			Height:20
 			Text:Firestorm Expansion Content
 		Button@INSTALL_BUTTON:
 			X:20

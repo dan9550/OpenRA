@@ -11,6 +11,7 @@
 
 using System;
 using OpenRA.FileFormats;
+using OpenRA.FileSystem;
 using OpenRA.Widgets;
 
 namespace OpenRA.Mods.TS.Widgets.Logic
@@ -21,6 +22,11 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 		public InstalledContentLogic(Widget widget,  Action onExit)
 		{
 			var panel = widget.Get("CONTENT_PANEL");
+			var gdiContent = panel.Get<CheckboxWidget>("GDI_CONTENT");
+
+			//panel.Get<CheckboxWidget>("GDI_CONTENT").
+			if (GlobalFileSystem.Exists("sno.mix")) //load from YAML
+				gdiContent.IsChecked = () => true;
 
 			panel.Get<ButtonWidget>("BACK_BUTTON").OnClick = () =>
 			{
@@ -30,6 +36,7 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 
 			panel.Get<ButtonWidget>("INSTALL_BUTTON").OnClick = () =>
 			{
+				//Unload mod first somehow :S
 				Ui.OpenWindow("INSTALL_FROMCD_PANEL");
 			};
 		}

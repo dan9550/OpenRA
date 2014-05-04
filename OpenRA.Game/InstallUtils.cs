@@ -44,7 +44,7 @@ namespace OpenRA
 			if (!Directory.Exists(destPath))
 				Directory.CreateDirectory(destPath);
 
-			if (!GlobalFileSystem.Exists(srcPath)) { onError("Cannot find " + package); return false; }
+			if (!Directory.Exists(srcPath)) { onError("Cannot find " + package); return false; }
 			GlobalFileSystem.Mount(srcPath);
 			if (!GlobalFileSystem.Exists(package)) { onError("Cannot find " + package); return false; }
 			{
@@ -55,6 +55,46 @@ namespace OpenRA
 				else
 				{
 					GlobalFileSystem.Mount(package);
+				}
+			}
+
+			foreach (string s in files)
+			{
+				var destFile = Path.Combine(destPath, s);
+				if (!File.Exists(destFile)) //Should skip existing files :)
+				{
+					using (var sourceStream = GlobalFileSystem.Open(s))
+					using (var destStream = File.Create(destFile))
+					{
+						onProgress("Extracting " + s);
+						destStream.Write(sourceStream.ReadAllBytes());
+					}
+				}
+			}
+
+			return true;
+		}
+
+		public static bool ExtractceptionFromPackage(string srcPath, string package, string inpackage, string[] files, string destPath, Action<string> onProgress, Action<string> onError, bool encrypted = false)
+		{
+			//mount main mix on cd
+			//extract sets of files from individual mixes
+			if (!Directory.Exists(destPath))
+				Directory.CreateDirectory(destPath);
+
+			if (!Directory.Exists(srcPath)) { onError("Cannot find " + package); return false; }
+			GlobalFileSystem.Mount(srcPath);
+			if (!GlobalFileSystem.Exists(package)) { onError("Cannot find " + package); return false; }
+			{
+				if (encrypted == true)
+				{
+					GlobalFileSystem.Mount(package, "CRC32");
+					GlobalFileSystem.Mount(inpackage, "CRC32");
+				}
+				else
+				{
+					GlobalFileSystem.Mount(package);
+					GlobalFileSystem.Mount(inpackage);
 				}
 			}
 
@@ -90,6 +130,47 @@ namespace OpenRA
 				onProgress("Extracting " + destFile);
 				File.Copy(fromPath,	Path.Combine(destPath, destFile), true);
 			}
+
+			return true;
+		}
+
+		public static bool PackageFiles(string package, string[] files, string destPath, Action<string> onProgress, Action<string> onError)
+		{	
+			//InstallUtils.ExtractFromPackage(source, installPackages[0], baseFiles, baseDest, onProgress, onError, true))
+			var packFiles = new Dictionary<string, byte[]>();
+
+			//ExtractFromPackage(srcPath, package, files, destPath, onProgress, onError, encrypted);
+			//Console.WriteLine("Package extracted!");
+
+			int ff = 0;
+			foreach (var f in files)
+				{
+					packFiles.Add(f, File.ReadAllBytes(Path.Combine(destPath, files[ff])));
+					ff++;
+				}
+			Console.WriteLine("Files loaded into dictionary");
+
+			//check if file already exists if so update it rather than create new
+			if (File.Exists(Path.Combine(destPath, package)))
+			{
+				onProgress("Updating " + package);
+				Console.WriteLine("KANE IS ALREADY HERE!");
+			}
+			else
+			{
+				onProgress("Creating " + package);
+				Console.WriteLine(destPath);
+				GlobalFileSystem.CreatePackage(Path.Combine(destPath, package), int.MaxValue, packFiles);
+			}
+			//remove strays
+			int d = 0;
+			foreach (var f in files)
+			{
+				File.Delete(Path.Combine(destPath, files[d]));
+				//packFiles.Add(f, File.ReadAllBytes(Path.Combine(destPath, files[ff])));
+				d++;
+			}
+			Console.WriteLine("orapak created!!!!");
 
 			return true;
 		}

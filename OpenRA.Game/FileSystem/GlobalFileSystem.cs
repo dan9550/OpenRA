@@ -66,6 +66,8 @@ namespace OpenRA.FileSystem
 				return new ZipFile(filename, order, content);
 			else if (filename.EndsWith(".oramap", StringComparison.InvariantCultureIgnoreCase))
 				return new ZipFile(filename, order, content);
+			else if (filename.EndsWith(".orapak", StringComparison.InvariantCultureIgnoreCase))
+				return new ZipFile(filename, order, content);
 			else if (filename.EndsWith(".RS", StringComparison.InvariantCultureIgnoreCase))
 				throw new NotImplementedException("Creating .RS archives is unsupported");
 			else if (filename.EndsWith(".Z", StringComparison.InvariantCultureIgnoreCase))
