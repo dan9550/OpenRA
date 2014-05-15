@@ -90,6 +90,8 @@ namespace OpenRA.FileSystem
 				return new ZipFile(filename, order);
 			else if (filename.EndsWith(".oramap", StringComparison.InvariantCultureIgnoreCase))
 				return new ZipFile(filename, order);
+			else if (filename.EndsWith(".orapak", StringComparison.InvariantCultureIgnoreCase))
+				return new ZipFile(filename, order);
 			else if (filename.EndsWith(".RS", StringComparison.InvariantCultureIgnoreCase))
 				return new D2kSoundResources(filename, order);
 			else if (filename.EndsWith(".Z", StringComparison.InvariantCultureIgnoreCase))
@@ -150,7 +152,10 @@ namespace OpenRA.FileSystem
 				Mount(dir);
 
 			foreach (var pkg in manifest.Packages)
+			{
+				Console.WriteLine("Mounting: " + pkg.Key.ToString());
 				Mount(pkg.Key, pkg.Value);
+			}
 		}
 
 		static Stream GetFromCache(PackageHashType type, string filename)

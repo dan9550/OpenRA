@@ -20,9 +20,9 @@ MapFolders:
 
 Packages:
 # Tiberian Sun
-	ts-base.orapak
-	~ts-scores.orapak
-	~ts-movies.orapak
+	#ts-base.orapak
+	~ts-scores.mix
+	~ts-movies.mix
 	~scores.mix:CRC32
 	~sidenc01.mix:CRC32
 	~sidenc02.mix:CRC32

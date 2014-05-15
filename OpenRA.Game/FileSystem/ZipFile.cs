@@ -36,6 +36,21 @@ namespace OpenRA.FileSystem
 			}
 		}
 
+		public void OpenZipFile(string filename, int priority)
+		{
+			this.filename = filename;
+			this.priority = priority;
+			try
+			{
+				// pull the file into memory, dont keep it open.
+				pkg = new SZipFile(new MemoryStream(File.ReadAllBytes(filename)));
+			}
+			catch (ZipException e)
+			{
+				Log.Write("debug", "Couldn't load zip file: {0}", e.Message);
+			}
+		}
+
 		// Create a new zip with the specified contents
 		public ZipFile(string filename, int priority, Dictionary<string, byte[]> contents)
 		{

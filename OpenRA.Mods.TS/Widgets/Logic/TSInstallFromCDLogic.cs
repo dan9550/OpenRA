@@ -119,6 +119,7 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 		{
 			var yaml = new MiniYaml(null, MiniYaml.FromFile("mods/ts/install.yaml")).NodesDict;
 
+
 			switch(content)
 			{
 				case 0: //GDI Disc
@@ -268,13 +269,13 @@ namespace OpenRA.Mods.TS.Widgets.Logic
 					//Scores
 					if (!InstallUtils.ExtractFromPackage(source, installPackages[1], scoresFiles, dest, onProgress, onError, true))
 						return;
-					if (!InstallUtils.PackageFiles("ts-scores.orapak", scoresFiles, dest, onProgress, onError))
+					if (!InstallUtils.PackageFiles("ts-scores.mix", scoresFiles, dest, onProgress, onError))
 						return;
 
 					//Movies
 					if (!InstallUtils.ExtractFromPackage(source, installPackages[2], moviesFiles, dest, onProgress, onError, true))
 						return;
-					if (!InstallUtils.PackageFiles("ts-movies.orapak", moviesFiles, dest, onProgress, onError))
+					if (!InstallUtils.PackageFiles("ts-movies.mix", moviesFiles, dest, onProgress, onError))
 						return;
 
 					Game.RunAfterTick(() =>

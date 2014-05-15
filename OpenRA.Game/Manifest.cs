@@ -9,6 +9,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System; //DEBUGGING ONLY
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -44,6 +45,13 @@ namespace OpenRA
 			Folders = YamlList(yaml, "Folders");
 			MapFolders = YamlList(yaml, "MapFolders");
 			Packages = yaml["Packages"].NodesDict.ToDictionary(x => x.Key, x => x.Value.Value);
+
+			Console.WriteLine("Mod Packages:");
+			foreach (KeyValuePair<string, string> kvp in Packages)
+			{
+				Console.WriteLine("Name = {0}, Thingy = {1}", kvp.Key, kvp.Value);
+			}
+
 			Rules = YamlList(yaml, "Rules");
 			ServerTraits = YamlList(yaml, "ServerTraits");
 			Sequences = YamlList(yaml, "Sequences");
@@ -61,9 +69,13 @@ namespace OpenRA
 			TileSets = YamlList(yaml, "TileSets");
 			ChromeMetrics = YamlList(yaml, "ChromeMetrics");
 			PackageContents = YamlList(yaml, "PackageContents");
+
+			//string packconts = PackageContents.ToString();
+			Console.WriteLine("Mod Package Contents:");
+			Console.WriteLine(string.Join(",", PackageContents));
+
 			LuaScripts = YamlList(yaml, "LuaScripts");
 			Missions = YamlList(yaml, "Missions");
-
 			LoadScreen = yaml["LoadScreen"];
 			LobbyDefaults = yaml["LobbyDefaults"];
 			Fonts = yaml["Fonts"].NodesDict.ToDictionary(x => x.Key,
